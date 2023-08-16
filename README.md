@@ -261,6 +261,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## Contact
 
-- Email: dboldl@emory.edu
+- Email: dbold@emory.edu
 - Website: https://nursingdatascience.emory.edu
 
