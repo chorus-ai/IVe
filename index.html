@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IVe — Investigator's Explorer</title>
+    <meta
+      name="description"
+      content="IVe is a clinical research workspace for the OMOP Common Data Model. Search standardized vocabularies, build retrospective cohorts, and chat with a clinical AI agent — all in one place."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+            colors: {
+              primary: "#3B82F6",
+              accent: "#8B5CF6",
+            },
+          },
+        },
+      };
+    </script>
+    <script>
+      // Apply theme before paint to avoid flash
+      (function () {
+        var saved = localStorage.getItem("ive-theme");
+        var prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      html.dark body {
+        background: #020617;
+        color: #f1f5f9;
+      }
+
+      /* ─── Light-mode overrides for the dark-by-default utility classes ─── */
+      html:not(.dark) .bg-slate-950 {
+        background-color: #f8fafc !important;
+      }
+      html:not(.dark) .bg-slate-900,
+      html:not(.dark) .bg-slate-900\/60,
+      html:not(.dark) .bg-slate-900\/70 {
+        background-color: #ffffff !important;
+      }
+      html:not(.dark) .bg-slate-800,
+      html:not(.dark) .bg-slate-800\/30 {
+        background-color: #f1f5f9 !important;
+      }
+      html:not(.dark) .bg-slate-950\/70 {
+        background-color: rgba(248, 250, 252, 0.85) !important;
+      }
+      html:not(.dark) .border-slate-800 {
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) .border-slate-700 {
+        border-color: #cbd5e1 !important;
+      }
+      html:not(.dark) .text-white {
+        color: #0f172a !important;
+      }
+      /* Solid-color buttons keep their white label in light mode */
+      html:not(.dark) .text-white.bg-blue-600,
+      html:not(.dark) .text-white.bg-blue-500,
+      html:not(.dark) .bg-blue-600 .text-white,
+      html:not(.dark) .bg-blue-500 .text-white {
+        color: #ffffff !important;
+      }
+      html:not(.dark) .text-slate-100 {
+        color: #1e293b !important;
+      }
+      html:not(.dark) .text-slate-200 {
+        color: #334155 !important;
+      }
+      html:not(.dark) .text-slate-300 {
+        color: #475569 !important;
+      }
+      html:not(.dark) .text-slate-400 {
+        color: #64748b !important;
+      }
+      html:not(.dark) .text-slate-500 {
+        color: #475569 !important;
+      }
+      html:not(.dark) .text-slate-800 {
+        color: #cbd5e1 !important; /* used as numeric "01/02..." watermark in workflow */
+      }
+      html:not(.dark) .hover\:bg-slate-900:hover {
+        background-color: #f1f5f9 !important;
+      }
+      html:not(.dark) img.shot {
+        box-shadow:
+          0 30px 60px -20px rgba(15, 23, 42, 0.18),
+          0 0 0 1px rgba(15, 23, 42, 0.08);
+      }
+      html:not(.dark) .grid-bg {
+        background-image:
+          linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+      }
+
+      /* ─── .force-dark: keep this region dark even in light mode ─── */
+      html:not(.dark) .force-dark,
+      html:not(.dark) .force-dark .bg-slate-900 {
+        background-color: #0f172a !important;
+      }
+      html:not(.dark) .force-dark .bg-slate-800,
+      html:not(.dark) .force-dark .bg-slate-800\/60,
+      html:not(.dark) .force-dark .bg-slate-800\/30 {
+        background-color: rgba(30, 41, 59, 0.6) !important;
+      }
+      html:not(.dark) .force-dark .border-slate-800 {
+        border-color: #1e293b !important;
+      }
+      html:not(.dark) .force-dark .border-slate-700,
+      html:not(.dark) .force-dark .border-slate-700\/60 {
+        border-color: rgba(51, 65, 85, 0.6) !important;
+      }
+      html:not(.dark) .force-dark .text-white {
+        color: #ffffff !important;
+      }
+      html:not(.dark) .force-dark .text-slate-100 {
+        color: #f1f5f9 !important;
+      }
+      html:not(.dark) .force-dark .text-slate-200 {
+        color: #e2e8f0 !important;
+      }
+      html:not(.dark) .force-dark .text-slate-300 {
+        color: #cbd5e1 !important;
+      }
+      html:not(.dark) .force-dark .text-slate-400 {
+        color: #94a3b8 !important;
+      }
+      html:not(.dark) .force-dark .text-slate-500 {
+        color: #64748b !important;
+      }
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #60a5fa, #a78bfa, #34d399);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .glow-blue {
+        box-shadow: 0 0 80px rgba(59, 130, 246, 0.15);
+      }
+      .scroll-shadow {
+        background:
+          linear-gradient(#0f172a 30%, rgba(15, 23, 42, 0)) center top,
+          linear-gradient(rgba(15, 23, 42, 0), #0f172a 70%) center bottom;
+        background-size: 100% 40px;
+        background-repeat: no-repeat;
+      }
+      img.shot {
+        border-radius: 12px;
+        box-shadow:
+          0 30px 60px -20px rgba(0, 0, 0, 0.7),
+          0 0 0 1px rgba(148, 163, 184, 0.15);
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- ─────────── NAV ─────────── -->
+    <header
+      class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-slate-950/70 border-b border-slate-800"
+    >
+      <nav
+        class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between"
+      >
+        <a href="#" class="flex items-center text-xl font-extrabold">
+          <span class="text-white">I</span><span class="text-blue-400">Ve</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="#features" class="hover:text-white transition-colors">Features</a>
+          <a href="#screens" class="hover:text-white transition-colors">Screens</a>
+          <a href="#workflow" class="hover:text-white transition-colors">Workflow</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="Toggle theme"
+            class="inline-flex items-center justify-center h-9 w-9 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <span class="material-symbols-outlined text-lg theme-icon-dark">dark_mode</span>
+            <span class="material-symbols-outlined text-lg theme-icon-light hidden">light_mode</span>
+          </button>
+          <a
+            href="#cta"
+            class="hidden sm:inline-flex text-sm font-semibold px-3 py-1.5 text-slate-200 hover:text-white"
+            >Sign in</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <script>
+      // Theme toggle wiring
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var dark = document.querySelector(".theme-icon-dark");
+        var light = document.querySelector(".theme-icon-light");
+        function sync() {
+          var isDark = document.documentElement.classList.contains("dark");
+          dark.classList.toggle("hidden", isDark);
+          light.classList.toggle("hidden", !isDark);
+        }
+        sync();
+        btn.addEventListener("click", function () {
+          var isDark = document.documentElement.classList.toggle("dark");
+          localStorage.setItem("ive-theme", isDark ? "dark" : "light");
+          sync();
+        });
+      })();
+    </script>
+
+    <!-- ─────────── HERO ─────────── -->
+    <section class="relative pt-32 pb-24 overflow-hidden">
+      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+      <div
+        class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none"
+      ></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[120px] pointer-events-none"
+      ></div>
+
+      <div class="relative mx-auto max-w-6xl px-6 text-center">
+        <span
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-300 mb-8 backdrop-blur"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          OMOP CDM · v5.4 
+        </span>
+
+        <h1
+          class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6"
+        >
+          Explore the
+          <span class="gradient-text">CHoRUS Clinical Data</span>
+      
+        </h1>
+        <p
+          class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+        >
+          IVe is the investigator's explorer — search SNOMED, RxNorm,
+          and ICD-10, build retrospective cohorts, and ask a clinical agent
+          questions about your data.
+        </p>
+
+        <div class="flex flex-wrap justify-center items-center gap-4 mb-16">
+          <a
+            href="#cta"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/30"
+          >
+            <span>Launch IVe</span>
+            <span class="material-symbols-outlined">rocket_launch</span>
+          </a>
+          <a
+            href="#screens"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900 text-slate-200 font-bold transition-colors"
+          >
+            <span class="material-symbols-outlined">play_circle</span>
+            <span>See it in action</span>
+          </a>
+        </div>
+
+        <!-- Hero shot -->
+        <div class="relative max-w-5xl mx-auto float">
+          <div
+            class="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-violet-500/20 to-emerald-500/20 rounded-3xl blur-2xl"
+          ></div>
+          <img
+            src="https://github.com/chorus-ai/IVe/blob/main/screens/01-search.png?raw=true"
+            alt="IVe Search landing"
+            class="relative shot w-full"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Key stats -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-16 text-left"
+        >
+          <div>
+            <p class="text-3xl font-extrabold text-white">15</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
+              CDM v5.4 Tables
+            </p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-white">9.5M+</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
+              Indexed Concepts
+            </p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-white">3</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
+              Vocabularies
+            </p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-white">∞</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
+              Custom Cohorts
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── FEATURES ─────────── -->
+    <section
+      id="features"
+      class="relative py-24 border-t border-slate-800 bg-slate-950"
+    >
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <p class="text-[11px] uppercase tracking-widest font-bold text-blue-400 mb-3">
+            What's inside
+          </p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            One workspace, five superpowers.
+          </h2>
+          <p class="text-slate-400 leading-relaxed">
+            Each surface is built around a single research workflow — concept
+            search, structured exploration, programmatic access, and AI-driven
+            analysis.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <!-- Search -->
+          <div
+            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/30 mb-4"
+            >
+              <span class="material-symbols-outlined text-blue-400">search</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Concept Search</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Find medical concepts across SNOMED, RxNorm, and ICD-10. Quick
+              category chips for Condition, Procedure, Drug, Measurement,
+              Visit, Observation, and demographics.
+            </p>
+          </div>
+
+          <!-- Cohort -->
+          <div
+            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10 border border-rose-500/30 mb-4"
+            >
+              <span class="material-symbols-outlined text-rose-400">groups</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Cohort Explorer</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Define, sync, and inspect patient populations. Browse PheLib
+              definitions and drill into individual subject timelines.
+            </p>
+          </div>
+
+          <!-- Workspace -->
+          <div
+            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/30 mb-4"
+            >
+              <span class="material-symbols-outlined text-emerald-400">dashboard</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Workspace</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Compose dashboards from clinical widgets — patient profiles,
+              timelines, lab trends, and visit cost panels.
+            </p>
+          </div>
+
+          <!-- Endpoints -->
+          <div
+            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/30 mb-4"
+            >
+              <span class="material-symbols-outlined text-violet-400">api</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">API Endpoints</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Browse, version, and execute every API call IVe offers — from
+              <code class="text-xs text-slate-300">/person</code> lookups to
+              cohort generation.
+            </p>
+          </div>
+
+          <!-- Agent -->
+          <div
+            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4"
+            >
+              <span class="material-symbols-outlined text-amber-400">smart_toy</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Clinical Agent</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Ask in plain English: "Summarize Sarah Sterling," "Show prevalence
+              of hypertension." The agent queries OMOP for you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── SCREENSHOTS ─────────── -->
+    <section
+      id="screens"
+      class="relative py-24 border-t border-slate-800 overflow-hidden"
+    >
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[200px] pointer-events-none"
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <p class="text-[11px] uppercase tracking-widest font-bold text-violet-400 mb-3">
+            Tour
+          </p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            See every surface.
+          </h2>
+          <p class="text-slate-400 leading-relaxed">
+            Real screens from a recent build — no marketing mockups.
+          </p>
+        </div>
+
+        <!-- Tables Overview -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-4"
+              >01 — Tables Overview</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Every OMOP table at a glance.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Live record counts for all 13 CDM v5.4 domains plus signal and
+              imaging extensions. Click any card to drill into filtered rows.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Conditions, drugs, procedures, devices, observations
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Sync counts on demand
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Native dark mode
+              </li>
+            </ul>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/02-tables.png?raw=true"
+              alt="Clinical Tables Overview"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Cohort Explorer -->
+        <div id="cohort" class="grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-20">
+          <div class="lg:col-span-3">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/08-cohort-explorer.png?raw=true"
+              alt="Cohort Explorer"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+          <div class="lg:col-span-2">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-4"
+              >02 — Cohort Explorer</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Patient populations, defined.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Catalog every cohort definition, see live subject counts, and
+              track when each was last synced. Public, private, and PheLib-
+              sourced cohorts all live in one explorer.
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4"
+              >
+                <p class="text-2xl font-extrabold text-white">15</p>
+                <p
+                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
+                >
+                  Definitions
+                </p>
+              </div>
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4"
+              >
+                <p class="text-2xl font-extrabold text-white">8</p>
+                <p
+                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
+                >
+                  Public Cohorts
+                </p>
+              </div>
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4 col-span-2"
+              >
+                <p
+                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1"
+                >
+                  Example
+                </p>
+                <p class="text-sm font-semibold text-slate-200">
+                  [PheLib&nbsp;-&nbsp;898]&nbsp;[P]&nbsp;Acute renal failure
+                </p>
+                <p class="text-xs text-slate-500 mt-0.5">16,437 subjects · external_sourced</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cohort Subject -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-4"
+              >03 — Subject Timeline</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Drill into a single subject.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Pick any subject in a cohort to see their event-intensity chart,
+              full timeline of OMOP events, and a domain record table — all
+              scoped to the cohort window.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Stacked bar chart of conditions, drugs, measurements, procedures
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Gantt-style longitudinal timeline (powered by ECharts)
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
+                  >check_circle</span
+                >
+                Export the cohort as CSV or hand it to the Agent
+              </li>
+            </ul>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/09-subject-timeline.png?raw=true"
+              alt="Cohort subject timeline"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Patient Profile -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
+          <div class="lg:col-span-3">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/03-workspace.png?raw=true"
+              alt="Patient profile workspace"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+          <div class="lg:col-span-2">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest text-blue-400 mb-4"
+              >04 — Patient Workspace</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Patient stories, structured.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Open any subject (e.g. Person #18462) for a profile header,
+              retrospective summary, latest progress note, and vital
+              trends — composed from drag-and-drop widgets you save as
+              reusable layouts.
+            </p>
+            <div
+              class="grid grid-cols-2 gap-3 text-xs font-bold uppercase tracking-widest text-slate-500"
+            >
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
+              >
+                Profile Card
+              </div>
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
+              >
+                Past Vital Trends
+              </div>
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
+              >
+                Progress Note
+              </div>
+              <div
+                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
+              >
+                Documented Dx
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Endpoints -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-4"
+              >05 — Endpoints</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Every API, one place.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Browse, tag, and version every IVe endpoint. Inspect request
+              bodies, watch payload sizes, and copy curl-ready URLs.
+            </p>
+            <pre
+              class="bg-slate-950 border border-slate-800 rounded-lg p-4 text-xs text-slate-300 overflow-x-auto"
+            ><code><span class="text-blue-400">POST</span> /api/v1/analysis/execute
+<span class="text-emerald-400">GET</span>  /api/v1/cdm/source
+<span class="text-blue-400">POST</span> /person/search   <span class="text-slate-500"># cached</span>
+<span class="text-blue-400">POST</span> /measurement/search   <span class="text-slate-500"># cached</span></code></pre>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/04-endpoints.png?raw=true"
+              alt="API Endpoints"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Widget Builder -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
+          <div class="lg:col-span-3">
+            <img
+              src="https://github.com/chorus-ai/IVe/blob/main/screens/10-workspace-builder.png?raw=true"
+              alt="Workspace with widgets"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+          <div class="lg:col-span-2">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-4"
+              >06 — Composable Widgets</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Compose dashboards, your way.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Drop in clinical notes, vital trends, documented diagnoses, or
+              custom charts. Each widget is backed by a live endpoint and can
+              be resized, reordered, and persisted as a saved layout.
+            </p>
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <img
+                src="https://github.com/chorus-ai/IVe/blob/main/screens/05-widget-builder.png?raw=true"
+                alt="Custom widget builder"
+                class="shot w-full"
+                loading="lazy"
+              />
+              <img
+                src="https://github.com/chorus-ai/IVe/blob/main/screens/06-widget-library.png?raw=true"
+                alt="Widget library"
+                class="shot w-full"
+                loading="lazy"
+              />
+              <img
+                src="https://github.com/chorus-ai/IVe/blob/main/screens/07-layout-archive.png?raw=true"
+                alt="Layout archive"
+                class="shot w-full"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent -->
+        <div class="grid lg:grid-cols-5 gap-10 items-center">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <span
+              class="inline-block px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-bold uppercase tracking-widest text-amber-400 mb-4"
+              >07 — Clinical Agent</span
+            >
+            <h3 class="text-3xl font-extrabold mb-4">
+              Talk to your data.
+            </h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              The Clinical Agent is grounded in OMOP CDM v5.4 via a RAG
+              service. Ask it to find cohorts, summarize patients, or compute
+              prevalence — it writes the queries for you and returns
+              structured, sharable results.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
+                >Find patients with T2DM</span
+              >
+              <span
+                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
+                >Summarize Person #18462</span
+              >
+              <span
+                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
+                >Prevalence of Hypertension</span
+              >
+            </div>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <div
+              class="force-dark relative bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-2xl"
+            >
+              <div
+                class="flex items-center gap-2 pb-4 border-b border-slate-800 mb-4"
+              >
+                <span
+                  class="material-symbols-outlined text-amber-400"
+                  >smart_toy</span
+                >
+                <div>
+                  <p class="text-sm font-semibold text-white">Clinical Agent</p>
+                  <p class="text-[10px] uppercase tracking-widest text-slate-500">
+                    Powered by OMOP CDM v5.4
+                  </p>
+                </div>
+              </div>
+              <div class="space-y-4 text-sm">
+                <div class="flex justify-end">
+                  <p
+                    class="bg-blue-500/15 border border-blue-500/30 text-slate-200 rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%]"
+                  >
+                    Summarize Person #18462
+                  </p>
+                </div>
+                <div class="flex justify-start">
+                  <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl rounded-bl-sm px-4 py-3 max-w-[85%] text-slate-200 space-y-2">
+                    <p>
+                      <span class="font-bold text-white">Person #18462</span> —
+                      55-year-old male, last visit 2024-10-08.
+                    </p>
+                    <p class="text-slate-400 text-xs">
+                      Active conditions: Type 2 DM, Essential Hypertension,
+                      Hyperlipidemia. Vitals: BMI 28.4 (+1.2), BP 7.1% (-0.4).
+                    </p>
+                    <p class="text-xs text-amber-400/90">
+                      ▸ Generated from 4 OMOP queries · view&nbsp;trace
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── WORKFLOW ─────────── -->
+    <section
+      id="workflow"
+      class="relative py-24 border-t border-slate-800 bg-slate-950"
+    >
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <p
+            class="text-[11px] uppercase tracking-widest font-bold text-emerald-400 mb-3"
+          >
+            How it works
+          </p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+            From concept to cohort in four steps.
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          <div class="relative">
+            <div class="text-6xl font-black text-slate-800 mb-2">01</div>
+            <h3 class="text-xl font-bold mb-2">Search</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Find the concepts that define your population. Standardized to
+              OMOP, suggested by frequency.
+            </p>
+          </div>
+          <div class="relative">
+            <div class="text-6xl font-black text-slate-800 mb-2">02</div>
+            <h3 class="text-xl font-bold mb-2">Define</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Build or import a cohort definition. PheLib, custom logic, or
+              external sources all work.
+            </p>
+          </div>
+          <div class="relative">
+            <div class="text-6xl font-black text-slate-800 mb-2">03</div>
+            <h3 class="text-xl font-bold mb-2">Explore</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Drill into subject timelines, filter records by table, and save
+              filter sets as reusable views.
+            </p>
+          </div>
+          <div class="relative">
+            <div class="text-6xl font-black text-slate-800 mb-2">04</div>
+            <h3 class="text-xl font-bold mb-2">Analyze</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Compose widgets in the Workspace, persist as a layout, or hand it
+              off to the Clinical Agent.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── FAQ ─────────── -->
+    <section id="faq" class="relative py-24 border-t border-slate-800">
+      <div class="mx-auto max-w-3xl px-6">
+        <div class="text-center mb-12">
+          <p class="text-[11px] uppercase tracking-widest font-bold text-blue-400 mb-3">
+            FAQ
+          </p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+            Common questions.
+          </h2>
+        </div>
+
+        <div class="space-y-3">
+          <details
+            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
+          >
+            <summary
+              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
+            >
+              Which OMOP CDM version does IVe target?
+              <span
+                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
+                >expand_more</span
+              >
+            </summary>
+            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+              IVe uses OMOP CDM v5.4.
+            </p>
+          </details>
+          <details
+            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
+          >
+            <summary
+              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
+            >
+              Does the Clinical Agent see PHI?
+              <span
+                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
+                >expand_more</span
+              >
+            </summary>
+            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+              No. The Agent trained and runs against endpoint schema generated by users. It uses endpoints as input RAG and output endpoint schema output. 
+            </p>
+          </details>
+          <details
+            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
+          >
+            <summary
+              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
+            >
+              Can I extend IVe with my own widgets?
+              <span
+                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
+                >expand_more</span
+              >
+            </summary>
+            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+              Yes. Widgets are React components registered against the workspace
+              widget registry. New endpoint-backed widgets can be added via the
+              Endpoint editor without redeploys.
+            </p>
+          </details>
+          <details
+            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
+          >
+            <summary
+              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
+            >
+              How do I get access?
+              <span
+                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
+                >expand_more</span
+              >
+            </summary>
+            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+              Sign in to the CHoRUS app suite, then request access to IVe from
+              your Profile → Feature panel.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── CTA ─────────── -->
+    <section id="cta" class="relative py-24 border-t border-slate-800 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-emerald-500/10 pointer-events-none"
+      ></div>
+      <div class="relative mx-auto max-w-3xl px-6 text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+          Ready to investigate?
+        </h2>
+        <p class="text-lg text-slate-400 mb-8">
+          Open IVe and start your first concept search in under a minute.
+        </p>
+        <a
+          href="/ive"
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold transition-all active:scale-95 shadow-2xl shadow-blue-500/30"
+        >
+          <span>Launch IVe</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ─────────── FOOTER ─────────── -->
+    <footer class="border-t border-slate-800 py-10">
+      <div
+        class="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <div class="flex items-center gap-6 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            v5.4
+          </div>
+          <div class="hidden md:block w-px h-4 bg-slate-800"></div>
+          <div>OMOP CDM Standard</div>
+        </div>
+        <div class="flex items-center gap-6 text-xs font-medium text-slate-500">
+          <a href="#" class="hover:text-blue-400 transition-colors">Documentation</a>
+          <a href="#" class="hover:text-blue-400 transition-colors">API Reference</a>
+          <a href="#" class="hover:text-blue-400 transition-colors">Support</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
