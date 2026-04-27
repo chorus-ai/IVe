@@ -938,9 +938,8 @@
               >
             </summary>
             <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              The Agent runs against the same OMOP database your account is
-              authorized for. Access is gated by JWT-authenticated sessions and
-              feature-level RBAC.
+              The Clinical Agent does not directly access or view PHI. It operates using user generated endpoint schemas as part of a RAG (Retrieval-Augmented Generation) architecture. The agent generates and interacts with endpoints and schema representations—not the underlying raw data itself. 
+              </br>All data access remains controlled through JWT-authenticated sessions and feature-level RBAC (Role-Based Access Control), and any retrieval is abstracted through approved endpoints rather than direct interaction with actual patient data.
             </p>
           </details>
           <details
@@ -974,7 +973,7 @@
               >
             </summary>
             <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Sign in to the Hulab Apps suite, then request access to IVe from
+              Sign in to the Chorus Apps suite, then request access to IVe from
               your Profile → Apps panel.
             </p>
           </details>
