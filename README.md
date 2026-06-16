@@ -43,14 +43,28 @@ npm install
 
 ## Usage
 
+The frontend is a React app built with [Vite](https://vitejs.dev/); the backend is an
+Express server. Run them in two terminals.
+
 ```bash
-# Run the server, listen PORT=8080
-node server.js 
+# Server (from server/) — Express on port 8080
+cd server
+npm install
+npm start
 ```
 
 ```bash
-# Run the client, listen PORT=3000
-npm start
+# Client (from client/) — Vite dev server on port 5173, proxies /api → localhost:8080
+cd client
+npm run dev
+```
+
+Other client scripts (run from `client/`):
+
+```bash
+npm run build     # Production build to dist/
+npm run preview   # Preview the production build locally
+npm run lint      # ESLint
 ```
 
 ## DB Schema
