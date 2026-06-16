@@ -3,14 +3,12 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 > [!IMPORTANT]
-> **Active development has moved.** This repository is no longer where IVe is built.
-> All current development happens in the **`develop`** branch of the internal monorepo:
+> **Development is currently happening in the internal monorepo**, on the **`develop`** branch:
 >
 > 👉 **https://github.com/chorus-ai/chorus-apps-internal/tree/develop**
 >
-> IVe now lives there as one app within the CHoRUS apps suite (under `client/src/apps/ive/`).
-> Please open issues, branches, and pull requests against that repository. This repo is kept
-> for historical reference only.
+> IVe is built there as one app within the CHoRUS apps suite (under `client/src/apps/ive/`).
+> Once a containerized release is ready, we will update this repository with the published packages.
 
 Integrated Viewer (IVe) webapp is to develop the proposed to support visualization and interrogation of the CHoRUS dataset that will include structured EHR (OMOP), extracted concepts from clinical notes, physiological vital signs/alarms/waveform, and image data. We decompose this task into subtasks, each of which either targets a specific key feature or workflow. The development will take place first at Emory University using an equivalent local dataset, in parallel to the development of proposed CHoRUS data platform and effort of data acquisition at other sites.  Throughout the development process, alpha and beta versions of IVe will be made available to at least one additional CHoRUS site for further testing. In addition, frequent demonstrations will be offered to solicit feedback and inform details of various features from the whole CHoRUS team.  
 
@@ -27,8 +25,8 @@ Integrated Viewer (IVe) webapp is to develop the proposed to support visualizati
 
 ## Installation
 
-> Clone the **development monorepo** and check out the `develop` branch — this archived repo
-> is not the build source.
+> Development currently happens in the monorepo — clone it and check out the `develop` branch.
+> A containerized release will be published here once ready.
 
 ```bash
 # Clone the active development repository
@@ -271,7 +269,7 @@ Based on the provided description, here's a breakdown of the features for the in
 
 ## Contributing
 
-All contributions go to the development repository, **not** this archived one:
+Development currently happens in the monorepo:
 **https://github.com/chorus-ai/chorus-apps-internal/tree/develop**
 
 1. Clone `chorus-apps-internal` and check out `develop`
