@@ -1,8 +1,11 @@
-# 2. Cohort
+---
+description: >-
+  Browse and inspect predefined patient cohorts (PheLib-sourced phenotype
+  definitions). The list view lets the user find a cohort; the detail view lets
+  them drill into the cohort's members.
+---
 
-## Purpose
-
-Browse and inspect predefined patient cohorts (PheLib-sourced phenotype definitions). The list view lets the user find a cohort; the detail view lets them drill into the cohort's members.
+# Cohort
 
 ## List view
 

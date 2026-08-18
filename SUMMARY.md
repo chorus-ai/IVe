@@ -5,7 +5,7 @@
 ## App Features
 
 * [Search (Landing)](docs/search.md)
-* [2. Cohort](docs/cohort.md)
+* [Cohort](docs/cohort.md)
 * [3. Workspace](docs/workspace.md)
 * [4. Endpoints](docs/endpoints.md)
 * [5. Agent](docs/agent.md)
