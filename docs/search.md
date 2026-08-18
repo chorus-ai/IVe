@@ -25,7 +25,7 @@ description: >-
 
 ## Behaviour on selecting a result
 
-Selecting a concept navigates to the relevant [Clinical Table Detail](clinical-table-detail.md) view with the chosen concept pre-applied as a filter. The destination table is inferred from the concept's domain (e.g. Condition → `condition_occurrence`).
+Selecting a concept navigates to the relevant [Clinical Tables](clinical-tables.md) detail view with the chosen concept pre-applied as a filter. The destination table is inferred from the concept's domain (e.g. Condition → `condition_occurrence`).
 
 ## Related components
 

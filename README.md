@@ -89,19 +89,18 @@ npm run lint      # ESLint
 
 Multi-page reference docs are structured for GitBook, starting at [SUMMARY.md](SUMMARY.md). This section documents IVe page by page: what each page does and what the user sees. A typical user moves through IVe in roughly this order:
 
-| #  | Page                                                   |
-| -- | ------------------------------------------------------ |
-| 1  | [Search (Landing)](docs/search.md)                     |
-| 2  | [Cohort](docs/cohort.md)                               |
-| 3  | [Workspace](docs/workspace.md)                         |
-| 4  | [Endpoints](docs/endpoints.md)                         |
-| 5  | [Agent](docs/agent.md)                                 |
-| 6  | [Clinical Tables Overview](docs/clinical-tables.md)    |
-| 7  | [Clinical Table Detail](docs/clinical-table-detail.md) |
-| 7a | [Waveform Viewer](docs/waveform.md)                    |
-| 7b | [DICOM Viewer](docs/dicom.md) (coming soon)            |
-| 8  | [Person Data View](docs/person.md)                     |
-| 9  | [Visit Data View](docs/visit.md)                       |
+| #  | Page                                         |
+| -- | --------------------------------------------- |
+| 1  | [Search (Landing)](docs/search.md)           |
+| 2  | [Cohort](docs/cohort.md)                     |
+| 3  | [Workspace](docs/workspace.md)               |
+| 4  | [Endpoints](docs/endpoints.md)               |
+| 5  | [Agent](docs/agent.md)                       |
+| 6  | [Clinical Tables](docs/clinical-tables.md)   |
+| 6a | [Waveform Viewer](docs/waveform.md)          |
+| 6b | [DICOM Viewer](docs/dicom.md) (coming soon)  |
+| 7  | [Person Data View](docs/person.md)           |
+| 8  | [Visit Data View](docs/visit.md)             |
 
 ### Developer Guides
 

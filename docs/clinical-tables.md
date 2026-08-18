@@ -1,18 +1,26 @@
-# 6. Clinical Tables Overview
+---
+description: >-
+  A directory of every OMOP table, each with a live row count. Click a table
+  to open its detail view — a paginated, filterable, sortable grid where users
+  compose filters, save them as endpoints, and drill into a Person or Visit
+  record.
+---
 
-## Purpose
-
-A directory of every OMOP table available to the user. Each card shows the table name, a short description, and the live row count. Click a card to open its detail view.
-
-## What the user sees
+# Clinical Tables
 
 ![Clinical Tables Overview — a card per OMOP table with a live row count](../.gitbook/assets/02-tables.png)
+
+### Layout
 
 * **"OMOP Tables" section** — cards for the \~23 OMOP tables (person, visit\_occurrence, condition\_occurrence, drug\_exposure, measurement, observation, procedure\_occurrence, death, observation\_period, note, note\_nlp, visit\_detail, device\_exposure, cohort, cohort\_definition, etc.).
 * **"Media" section** — cards for non-tabular sources (waveform, DICOM).
 * **Row count badge** on each card. Loaded lazily, with a small loading state.
 
-## Backend calls
+### Action: click a card
+
+Opens that table's detail view below — or, for the Waveform / DICOM media cards, the [Waveform Viewer](waveform.md) / [DICOM Viewer](dicom.md).
+
+### Backend calls
 
 For each card, on mount:
 
@@ -22,16 +30,64 @@ GET /api/omop/<table>/count
 
 (Media cards skip the count call.)
 
-## Redux state
+### Redux state
 
 `ive.tableCounts` — keyed by table name, populated as counts come back. Survives navigation so re-entering the page is instant.
 
-## Click behaviour
+## Table Detail
 
-| Card           | Destination                                       |
-| -------------- | ------------------------------------------------- |
-| Any OMOP table | [Clinical Table Detail](clinical-table-detail.md) |
-| Waveform       | [Waveform Viewer](waveform.md)                    |
-| DICOM          | [DICOM Viewer](dicom.md)                          |
+The workhorse view: a paginated, filterable, sortable grid over any OMOP table. Users compose filters, save them as endpoints, and drill from any row into a Person or Visit view.
 
-The dispatcher lives in `routes.tsx` (`TableDetailRoute` component).
+### Layout
+
+* **Header** — table display name + row count.
+* **Toolbar:**
+  * Concept-search input — type a term, get matching `*_concept_id` rows, multi-select chips, applied as `IN (...)` filter.
+  * **Columns** menu — show / hide individual columns (`ColumnsMenu`).
+  * **Filter** button — opens `FilterModal` (see Filter section below).
+  * **Save Filter** — appears only when the current filter set is not already a saved endpoint.
+* **Filter chips row** (`FilterChips`) — shows the currently applied filter rules; click ✕ on a chip to drop that rule.
+* **DataGrid** — server-side paginated, sticky header, sortable columns. `person_id` and `visit_occurrence_id` cells are links to the Person / Visit views.
+
+### Filter modal
+
+Centered modal with a list of rules combined by AND. Each rule is `Where <column> <operator> <value>`. Add and Remove per row, Apply / Clear all in the footer.
+
+| Column type detected  | Operators offered                             |
+| ---------------------- | ---------------------------------------------- |
+| `*_concept_id`         | `is one of` (multi-select via concept search) |
+| `*_id` (non-concept)   | `is one of` (comma / space separated)         |
+| date / datetime        | between, greater than, less than, equals      |
+| numeric                | between, greater than, less than, equals      |
+| `*_source_value`       | equals, contains, starts with, ends with      |
+| free text              | contains, starts with, ends with, equals      |
+
+Two rules on the same column with `>` and `<` are auto-merged into `between` on Apply.
+
+### Backend calls
+
+| When                          | Endpoint                                                              |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| Page mount / paginate / sort  | `POST /api/omop/<table>/search` (body: filters, page, pageSize, sort) |
+| Row count                     | `GET /api/omop/<table>/count`                                         |
+| Concept search in filter      | `GET /api/vocab/concept` (autocomplete)                               |
+| Save Filter                   | `POST /api/ive/endpoints`                                             |
+
+### Redux state
+
+Per-table slice under `ive.tables[<tableKey>]`:
+
+* `filters`, `page`, `pageSize`, `sortBy`, `sortOrder`.
+
+So a user can navigate away and come back to the same view.
+
+### Linked views
+
+* Person link → [Person Data View](person.md).
+* Visit link → [Visit Data View](visit.md).
+* Save Filter → [Endpoints](endpoints.md) page shows the saved row.
+
+### Specialised modes
+
+* **Waveform** — multi-channel ECG / plethysmogram / respiration viewer over a WFDB-style record, with a scrubbable time window (see [Waveform Viewer](waveform.md)).
+* **DICOM** — radiology viewer with WL/WW, measurements, annotations, and OMOP linkage. Currently shows a coming-soon preview (see [DICOM Viewer](dicom.md)).

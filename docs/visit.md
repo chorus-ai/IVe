@@ -28,4 +28,4 @@ A visit is a tighter unit — the relevant tables are predictable, so we hard-co
 
 ## Related
 
-- Reached from any `visit_occurrence_id` link in the [Clinical Table Detail](clinical-table-detail.md) page or [Person](person.md) view.
+- Reached from any `visit_occurrence_id` link in the [Clinical Tables](clinical-tables.md) detail view or [Person](person.md) view.
