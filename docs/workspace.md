@@ -1,4 +1,4 @@
-# Workspace
+# 3. Workspace
 
 ## Purpose
 
@@ -6,15 +6,15 @@ A customisable dashboard for IVe. Users build a layout out of widgets (patient p
 
 ## What the user sees
 
-- **Widget grid.** Drag-and-drop tiles. Edit mode toggles the drag handles.
-- **Top toolbar** — Edit / Done, Save layout, Load layout, Add widget, Browse archive.
-- **Sidebar** (`LayoutsSidebar`) — the user's saved layouts.
+* **Widget grid.** Drag-and-drop tiles. Edit mode toggles the drag handles.
+* **Top toolbar** — Edit / Done, Save layout, Load layout, Add widget, Browse archive.
+* **Sidebar** (`LayoutsSidebar`) — the user's saved layouts.
 
-![Workspace showing a saved layout, with the sidebar of saved layouts on the left](../screens/03-workspace.png)
+![Workspace showing a saved layout, with the sidebar of saved layouts on the left](../.gitbook/assets/03-workspace.png)
 
 In edit mode, each widget gets drag/settings/remove controls in its title bar, and clicking a widget's settings icon opens it in place for editing:
 
-![Workspace in edit mode with a widget's settings open](../screens/10-workspace-builder.png)
+![Workspace in edit mode with a widget's settings open](../.gitbook/assets/10-workspace-builder.png)
 
 ## Widget types (rendered by the widget registry)
 
@@ -22,26 +22,26 @@ In edit mode, each widget gets drag/settings/remove controls in its title bar, a
 
 ## Modals
 
-- `SaveLayoutModal` — name + description for a new layout.
-- `WidgetSettingsModal` — per-widget config (e.g. table key, person filter, chart options).
-- `WidgetCreatorModal` — pick a widget type to add; see it in the [Widgets](widgets.md) guide.
-- `BrowseArchiveModal` — restore an archived layout; see it in the [Layouts](layouts.md) guide.
+* `SaveLayoutModal` — name + description for a new layout.
+* `WidgetSettingsModal` — per-widget config (e.g. table key, person filter, chart options).
+* `WidgetCreatorModal` — pick a widget type to add; see it in the [Widgets](widgets.md) guide.
+* `BrowseArchiveModal` — restore an archived layout; see it in the [Layouts](layouts.md) guide.
 
 ## Redux state (`ive` slice)
 
-| Field | Use |
-| --- | --- |
-| `currentWidgets` | Widgets shown in the active layout |
-| `savedLayouts` | All layouts owned by the user |
+| Field            | Use                                      |
+| ---------------- | ---------------------------------------- |
+| `currentWidgets` | Widgets shown in the active layout       |
+| `savedLayouts`   | All layouts owned by the user            |
 | `activeLayoutId` | Which saved layout is currently rendered |
 
 ## Backend calls
 
-| When | Endpoint |
-| --- | --- |
-| Page load | `GET /api/layouts` |
-| Save layout | `POST /api/layouts` |
-| Update layout | `PUT /api/layouts/:id` |
+| When          | Endpoint                  |
+| ------------- | ------------------------- |
+| Page load     | `GET /api/layouts`        |
+| Save layout   | `POST /api/layouts`       |
+| Update layout | `PUT /api/layouts/:id`    |
 | Delete layout | `DELETE /api/layouts/:id` |
 
 Widget-specific data calls are made by each widget (see the [Person](person.md) / [Visit](visit.md) page docs for examples).
