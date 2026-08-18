@@ -27,7 +27,7 @@ imaging — all in one place, plus chat with a clinical AI agent to query the da
 | 🫀 **Person & Visit views** | Drill into any patient or encounter and see everything recorded for it, including multi-channel waveform traces (ECG, plethysmogram, respiration). |
 
 See the [App Pages](#app-pages) section below for a full page-by-page tour, or start at
-[docs/SUMMARY.md](docs/SUMMARY.md) for the GitBook table of contents.
+[SUMMARY.md](SUMMARY.md) for the GitBook table of contents.
 
 Project background: development takes place first at Emory University using an
 Emory-equivalent local dataset, in parallel with the CHoRUS data platform build-out and data
@@ -92,24 +92,24 @@ npm run lint      # ESLint
 
 ## App Pages
 
-Multi-page reference docs live in [`/docs`](docs/SUMMARY.md), structured for GitBook. This
+Multi-page reference docs are structured for GitBook, starting at [SUMMARY.md](SUMMARY.md). This
 section documents IVe page by page: what each page does, what the user sees, and which
 backend endpoints and app state it relies on. A typical user moves through IVe in roughly
 this order:
 
 | # | Page | Route |
 | --- | --- | --- |
-| 1 | [Search (Landing)](docs/pages/search.md) | `/ive` |
-| 2 | [Cohort](docs/pages/cohort.md) | `/ive/cohort`, `/ive/cohort/:id` |
-| 3 | [Workspace](docs/pages/workspace.md) | `/ive/workspace` |
-| 4 | [Endpoints](docs/pages/endpoints.md) | `/ive/endpoints` |
-| 5 | [Agent](docs/pages/agent.md) | `/ive/agent` |
-| 6 | [Clinical Tables Overview](docs/pages/clinical-tables.md) | `/ive/tables` |
-| 7 | [Clinical Table Detail](docs/pages/clinical-table-detail.md) | `/ive/table/:tableKey` |
-| 7a | [Waveform Viewer](docs/pages/waveform.md) | `/ive/table/waveform` |
-| 7b | [DICOM Viewer](docs/pages/dicom.md) (coming soon) | `/ive/table/dicom` |
-| 8 | [Person Data View](docs/pages/person.md) | `/ive/person/:personId` |
-| 9 | [Visit Data View](docs/pages/visit.md) | `/ive/visit/:visitId` |
+| 1 | [Search (Landing)](pages/search.md) | `/ive` |
+| 2 | [Cohort](pages/cohort.md) | `/ive/cohort`, `/ive/cohort/:id` |
+| 3 | [Workspace](pages/workspace.md) | `/ive/workspace` |
+| 4 | [Endpoints](pages/endpoints.md) | `/ive/endpoints` |
+| 5 | [Agent](pages/agent.md) | `/ive/agent` |
+| 6 | [Clinical Tables Overview](pages/clinical-tables.md) | `/ive/tables` |
+| 7 | [Clinical Table Detail](pages/clinical-table-detail.md) | `/ive/table/:tableKey` |
+| 7a | [Waveform Viewer](pages/waveform.md) | `/ive/table/waveform` |
+| 7b | [DICOM Viewer](pages/dicom.md) (coming soon) | `/ive/table/dicom` |
+| 8 | [Person Data View](pages/person.md) | `/ive/person/:personId` |
+| 9 | [Visit Data View](pages/visit.md) | `/ive/visit/:visitId` |
 
 Each page doc covers: purpose, what the user sees, backend endpoints, relevant app state, and
 related components. Source paths referenced throughout are relative to
@@ -117,9 +117,9 @@ related components. Source paths referenced throughout are relative to
 
 ## Developer Guides
 
-- [Widgets](docs/guides/widgets.md) — how the dashboard widget system is structured, and how to
+- [Widgets](guides/widgets.md) — how the dashboard widget system is structured, and how to
   build and register a new widget.
-- [Layouts](docs/guides/layouts.md) — how dashboard layouts are stored, edited in the Workspace,
+- [Layouts](guides/layouts.md) — how dashboard layouts are stored, edited in the Workspace,
   and hosted read-only on other pages (e.g. the Person/Visit views).
 
 ## DB Schema

@@ -1,6 +1,6 @@
 # Summary
 
-* [IVe](../README.md)
+* [IVe](README.md)
 
 ## App Pages
 
