@@ -13,6 +13,12 @@ A customisable dashboard for IVe. Users build a layout out of widgets (patient p
 - **Top toolbar** — Edit / Done, Save layout, Load layout, Add widget, Browse archive.
 - **Sidebar** (`LayoutsSidebar`) — the user's saved layouts.
 
+![Workspace showing a saved layout, with the sidebar of saved layouts on the left](../screens/03-workspace.png)
+
+In edit mode, each widget gets drag/settings/remove controls in its title bar, and clicking a widget's settings icon opens it in place for editing:
+
+![Workspace in edit mode with a widget's settings open](../screens/10-workspace-builder.png)
+
 ## Widget types (rendered by the widget registry)
 
 `patient_profile`, `clinical_note`, `conditions`, `timeline`, `stats`, `table_card`, `chart`, `radar`, `adherence`, `genericChart`, `domain_table`, `visit_header`, `omop_domain_table`.
@@ -21,8 +27,8 @@ A customisable dashboard for IVe. Users build a layout out of widgets (patient p
 
 - `SaveLayoutModal` — name + description for a new layout.
 - `WidgetSettingsModal` — per-widget config (e.g. table key, person filter, chart options).
-- `WidgetCreatorModal` — pick a widget type to add.
-- `BrowseArchiveModal` — restore an archived layout.
+- `WidgetCreatorModal` — pick a widget type to add; see it in the [Widgets](../guides/widgets.md) guide.
+- `BrowseArchiveModal` — restore an archived layout; see it in the [Layouts](../guides/layouts.md) guide.
 
 ## Redux state (`ive` slice)
 

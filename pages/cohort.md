@@ -10,6 +10,8 @@ Browse and inspect predefined patient cohorts (PheLib-sourced phenotype definiti
 
 ## List view (`/ive/cohort`)
 
+![Cohort Explorer list view](../screens/08-cohort-explorer.png)
+
 ### Layout
 
 - **Stat cards** — total definitions, externally sourced, public, last sync timestamp.
@@ -32,6 +34,12 @@ Refreshes the cohort definitions from the external source. (Currently the list i
 - **Back button** — returns to the list.
 - **Left sidebar** — list of subjects in the cohort. Each button shows the person ID and the cohort start / end dates.
 - **Right panel** — `CohortSubjectView` for the selected subject (person ID, cohort window).
+
+![Cohort subject detail view — demographics, stats, and event timeline for a selected subject](../screens/09-subject-timeline.png)
+
+The right panel renders whichever layout is selected for the subject view (see the [Layouts](../guides/layouts.md) guide) — by default the built-in "Subject Event Timeline" layout: demographics, per-domain record counts, a scrollable multi-track event timeline (Observation/Measurement/Device/Procedure/Drug/Condition/Visit), and top-concepts panels. A layout built from waveform-capable widgets can also surface a multi-channel signal viewer here (see [Waveform Viewer](waveform.md)):
+
+![Multi-channel waveform widget embedded in a subject's timeline layout](../screens/subject_event_timeline_waveform.png)
 
 ### Notes
 

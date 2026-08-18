@@ -46,6 +46,11 @@ feeds `layout.widgets` into `RegistryWidget` / `WidgetGrid`.
   mount, appending any built-in defaults missing from the server. Use this
   hook in any page that needs layouts.
 
+Archived layouts are restored from the Layout Archive modal (`BrowseArchiveModal`), searchable by
+name or tag:
+
+![Layout Archive modal, listing saved layouts with tags and widget counts](../screens/07-layout-archive.png)
+
 ## Editing: the Workspace
 
 `pages/Workspace.tsx` is the layout editor: add widgets from the picker

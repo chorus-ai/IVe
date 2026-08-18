@@ -7,6 +7,8 @@ retrospective patient cohorts, and explore a single patient's full record — st
 (OMOP), extracted concepts from clinical notes, physiological vital signs/alarms/waveforms, and
 imaging — all in one place, plus chat with a clinical AI agent to query the data conversationally.
 
+![IVe search landing page](screens/01-search.png)
+
 > [!IMPORTANT]
 > **Development is currently happening in the internal monorepo**, on the **`develop`** branch:
 >

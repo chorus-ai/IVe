@@ -3,6 +3,17 @@
 How to build, configure, and register dashboard widgets. All paths are
 relative to `client/src/apps/ive/`.
 
+The user-facing entry point is the "Add Dashboard Element" modal (`WidgetCreatorModal`), opened
+from the [Workspace](../pages/workspace.md)'s Add Widget button. Its **Widget Library** tab lists
+pre-built widgets from the registry:
+
+![Add Dashboard Element modal — Widget Library tab](../screens/06-widget-library.png)
+
+...and its **Custom Builder** tab lets the user assemble a generic chart/table/note widget without
+a bespoke catalog entry:
+
+![Add Dashboard Element modal — Custom Builder tab](../screens/05-widget-builder.png)
+
 ## Architecture
 
 Widgets are self-describing plugins registered in a single map — the

@@ -9,6 +9,8 @@ Catalogue of saved OMOP queries. When a user composes a filter on a clinical tab
 
 ## What the user sees
 
+![Endpoints catalogue, showing saved queries with method, path, cache, and tag badges](../screens/04-endpoints.png)
+
 - **Tabs:** All / By Me / Cached.
 - **DataGrid** with columns: method (GET/POST badge), path, description, tags, owner avatar, public flag, created date, cached flag.
 - **Row actions:** Edit, Delete.

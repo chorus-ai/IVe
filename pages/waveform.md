@@ -7,6 +7,8 @@
 
 **Implemented.** A multi-channel physiological waveform viewer, launched from an OMOP table row or embedded directly in a saved dashboard layout (e.g. the built-in "Subject Event Timeline" layout).
 
+![Multi-channel waveform viewer showing ECG leads II/V/aVR, Pleth, and Resp for a subject](../screens/subject_event_timeline_waveform.png)
+
 ## What it does
 
 Renders a bedside-monitor-style stack of synchronized signal traces from a WFDB-style record:
