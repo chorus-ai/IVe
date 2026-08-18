@@ -1,6 +1,11 @@
-
-# IVe 
+# IVe — Integrated Viewer
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+**IVe is a clinical research workspace for the OMOP Common Data Model.** It's built for the
+CHoRUS project so researchers can search standardized clinical vocabularies, build and inspect
+retrospective patient cohorts, and explore a single patient's full record — structured EHR data
+(OMOP), extracted concepts from clinical notes, physiological vital signs/alarms/waveforms, and
+imaging — all in one place, plus chat with a clinical AI agent to query the data conversationally.
 
 > [!IMPORTANT]
 > **Development is currently happening in the internal monorepo**, on the **`develop`** branch:
@@ -10,12 +15,32 @@
 > IVe is built there as one app within the CHoRUS apps suite (under `client/src/apps/ive/`).
 > Once a containerized release is ready, we will update this repository with the published packages.
 
-Integrated Viewer (IVe) webapp is to develop the proposed to support visualization and interrogation of the CHoRUS dataset that will include structured EHR (OMOP), extracted concepts from clinical notes, physiological vital signs/alarms/waveform, and image data. We decompose this task into subtasks, each of which either targets a specific key feature or workflow. The development will take place first at Emory University using an equivalent local dataset, in parallel to the development of proposed CHoRUS data platform and effort of data acquisition at other sites.  Throughout the development process, alpha and beta versions of IVe will be made available to at least one additional CHoRUS site for further testing. In addition, frequent demonstrations will be offered to solicit feedback and inform details of various features from the whole CHoRUS team.  
+## What you can do in IVe
+
+| | |
+| --- | --- |
+| 🔎 **Search** | Start from a clinical concept (e.g. "diabetes", "metformin") and jump straight to the OMOP table it lives in — no need to already know the schema. |
+| 🧑‍🤝‍🧑 **Cohort** | Browse predefined patient cohorts and drill into each member's record. |
+| 🧩 **Workspace** | Build a custom dashboard from reusable widgets (demographics, timelines, lab trends, charts) and save it for later. |
+| 🔗 **Endpoints** | Save any filtered OMOP query as a reusable, shareable endpoint. |
+| 💬 **Agent** | Ask questions about the data in plain language and get an answer plus the underlying query. |
+| 🫀 **Person & Visit views** | Drill into any patient or encounter and see everything recorded for it, including multi-channel waveform traces (ECG, plethysmogram, respiration). |
+
+See the [App Pages](#app-pages) section below for a full page-by-page tour, or start at
+[docs/SUMMARY.md](docs/SUMMARY.md) for the GitBook table of contents.
+
+Project background: development takes place first at Emory University using an
+Emory-equivalent local dataset, in parallel with the CHoRUS data platform build-out and data
+acquisition at other sites. Alpha and beta versions are shared with at least one additional
+CHoRUS site for testing, with frequent demos to gather feedback from the whole CHoRUS team.
 
 ## Table of Contents
 
+- [What you can do in IVe](#what-you-can-do-in-ive)
 - [Installation](#installation)
 - [Usage](#usage)
+- [App Pages](#app-pages)
+- [Developer Guides](#developer-guides)
 - [Features](#features)
 - [Tasks](#tasks)
 - [Contributing](#contributing)
@@ -64,6 +89,38 @@ npm run build     # Production build to dist/
 npm run preview   # Preview the production build locally
 npm run lint      # ESLint
 ```
+
+## App Pages
+
+Multi-page reference docs live in [`/docs`](docs/SUMMARY.md), structured for GitBook. This
+section documents IVe page by page: what each page does, what the user sees, and which
+backend endpoints and app state it relies on. A typical user moves through IVe in roughly
+this order:
+
+| # | Page | Route |
+| --- | --- | --- |
+| 1 | [Search (Landing)](docs/pages/search.md) | `/ive` |
+| 2 | [Cohort](docs/pages/cohort.md) | `/ive/cohort`, `/ive/cohort/:id` |
+| 3 | [Workspace](docs/pages/workspace.md) | `/ive/workspace` |
+| 4 | [Endpoints](docs/pages/endpoints.md) | `/ive/endpoints` |
+| 5 | [Agent](docs/pages/agent.md) | `/ive/agent` |
+| 6 | [Clinical Tables Overview](docs/pages/clinical-tables.md) | `/ive/tables` |
+| 7 | [Clinical Table Detail](docs/pages/clinical-table-detail.md) | `/ive/table/:tableKey` |
+| 7a | [Waveform Viewer](docs/pages/waveform.md) | `/ive/table/waveform` |
+| 7b | [DICOM Viewer](docs/pages/dicom.md) (coming soon) | `/ive/table/dicom` |
+| 8 | [Person Data View](docs/pages/person.md) | `/ive/person/:personId` |
+| 9 | [Visit Data View](docs/pages/visit.md) | `/ive/visit/:visitId` |
+
+Each page doc covers: purpose, what the user sees, backend endpoints, relevant app state, and
+related components. Source paths referenced throughout are relative to
+`client/src/apps/ive/` in the monorepo linked above.
+
+## Developer Guides
+
+- [Widgets](docs/guides/widgets.md) — how the dashboard widget system is structured, and how to
+  build and register a new widget.
+- [Layouts](docs/guides/layouts.md) — how dashboard layouts are stored, edited in the Workspace,
+  and hosted read-only on other pages (e.g. the Person/Visit views).
 
 ## DB Schema
 
@@ -292,4 +349,3 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 - Email: dbold@emory.edu
 - Website: https://nursingdatascience.emory.edu
-
