@@ -1,8 +1,12 @@
+---
+description: >-
+  A chat-style assistant for exploring OMOP CDM data with natural language.
+  The user asks questions like "show me diabetic patients under 50 with
+  HbA1c > 7"; the agent responds with an answer, the API trace it would run,
+  and inline widgets (demographics, condition counts, mini-charts).
+---
+
 # Agent
-
-## Purpose
-
-A chat-style assistant for exploring OMOP CDM data with natural language. The user asks questions like "show me diabetic patients under 50 with HbA1c > 7"; the agent responds with an answer, the API trace it would run, and inline widgets (demographics, condition counts, mini-charts).
 
 ## What the user sees
 

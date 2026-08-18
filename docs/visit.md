@@ -1,8 +1,11 @@
+---
+description: >-
+  Single-encounter summary. Shows what happened during one visit —
+  admission/discharge info, the clinical note, and the rows the visit
+  produced in the main OMOP domain tables.
+---
+
 # Visit Data View
-
-## Purpose
-
-Single-encounter summary. Shows what happened during one visit — admission/discharge info, the clinical note, and the rows the visit produced in the main OMOP domain tables.
 
 ## What the user sees
 

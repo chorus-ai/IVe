@@ -1,8 +1,12 @@
-# 4. Endpoints
+---
+description: >-
+  Catalogue of saved OMOP queries. When a user composes a filter on a clinical
+  table and clicks "Save Filter", it is persisted as an endpoint — URL +
+  params + tags + description. This page lists every endpoint the user can
+  see.
+---
 
-## Purpose
-
-Catalogue of saved OMOP queries. When a user composes a filter on a clinical table (see the [Clinical Tables](clinical-tables.md) detail view) and clicks "Save Filter", it is persisted as an _endpoint_ — URL + params + tags + description. This page lists every endpoint the user can see.
+# Endpoints
 
 ## What the user sees
 
@@ -33,5 +37,6 @@ Clicking Edit opens `SaveEndpointModal`. Fields: endpoint URL, method, descripti
 
 ## Related
 
+* Endpoints are created from the [Clinical Tables](clinical-tables.md) detail view's "Save Filter" button.
 * `SaveEndpointModal` (also used by `ClinicalTablesDetail.tsx`).
 * `FilterChips` for visualising the params of a saved endpoint.

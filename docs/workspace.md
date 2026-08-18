@@ -1,8 +1,11 @@
-# 3. Workspace
+---
+description: >-
+  A customisable dashboard for IVe. Users build a layout out of widgets
+  (patient profile, condition timeline, lab measurements, charts, etc.),
+  save the layout, and revisit it later.
+---
 
-## Purpose
-
-A customisable dashboard for IVe. Users build a layout out of widgets (patient profile, condition timeline, lab measurements, charts, etc.), save the layout, and revisit it later.
+# Workspace
 
 ## What the user sees
 

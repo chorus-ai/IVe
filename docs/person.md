@@ -1,8 +1,11 @@
+---
+description: >-
+  Single-patient longitudinal record. The page auto-discovers which OMOP
+  tables actually have rows for this person and surfaces a widget per
+  non-empty table — so the user sees a tailored view, not 23 empty cards.
+---
+
 # Person Data View
-
-## Purpose
-
-Single-patient longitudinal record. The page auto-discovers which OMOP tables actually have rows for this person and surfaces a widget per non-empty table — so the user sees a tailored view, not 23 empty cards.
 
 ## What the user sees
 
