@@ -1,8 +1,8 @@
 # Summary
 
-* [IVe](README.md)
+* [Overview](README.md)
 
-## App Pages
+## App Features
 
 * [1. Search (Landing)](pages/search.md)
 * [2. Cohort](pages/cohort.md)
