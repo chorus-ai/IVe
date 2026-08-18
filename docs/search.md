@@ -1,10 +1,13 @@
-# 1. Search (Landing)
+---
+description: >-
+  The IVe entry point. A concept-first search bar that resolves OMOP concept
+  terms (e.g. "diabetes", "metformin") to the underlying clinical table the user
+  wants to explore. Designed so users start from
+---
+
+# Search (Landing)
 
 ![IVe search landing page](../.gitbook/assets/01-search.png)
-
-## Purpose
-
-The IVe entry point. A concept-first search bar that resolves OMOP concept terms (e.g. "diabetes", "metformin") to the underlying clinical table the user wants to explore. Designed so users start from a clinical idea, not from picking an OMOP table cold.
 
 ## What the user sees
 

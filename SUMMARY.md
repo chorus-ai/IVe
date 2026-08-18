@@ -1,10 +1,10 @@
-# Summary
+# Table of contents
 
 * [Overview](README.md)
 
 ## App Features
 
-* [1. Search (Landing)](docs/search.md)
+* [Search (Landing)](docs/search.md)
 * [2. Cohort](docs/cohort.md)
 * [3. Workspace](docs/workspace.md)
 * [4. Endpoints](docs/endpoints.md)
