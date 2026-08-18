@@ -1,7 +1,4 @@
-# Page 3 — Workspace
-
-**Route:** `/ive/workspace`
-**Source:** `client/src/apps/ive/pages/Workspace.tsx`
+# Workspace
 
 ## Purpose
 
@@ -27,8 +24,8 @@ In edit mode, each widget gets drag/settings/remove controls in its title bar, a
 
 - `SaveLayoutModal` — name + description for a new layout.
 - `WidgetSettingsModal` — per-widget config (e.g. table key, person filter, chart options).
-- `WidgetCreatorModal` — pick a widget type to add; see it in the [Widgets](../guides/widgets.md) guide.
-- `BrowseArchiveModal` — restore an archived layout; see it in the [Layouts](../guides/layouts.md) guide.
+- `WidgetCreatorModal` — pick a widget type to add; see it in the [Widgets](widgets.md) guide.
+- `BrowseArchiveModal` — restore an archived layout; see it in the [Layouts](layouts.md) guide.
 
 ## Redux state (`ive` slice)
 
@@ -49,4 +46,4 @@ In edit mode, each widget gets drag/settings/remove controls in its title bar, a
 
 Widget-specific data calls are made by each widget (see the [Person](person.md) / [Visit](visit.md) page docs for examples).
 
-For how layouts and widgets fit together, see the [Layouts](../guides/layouts.md) and [Widgets](../guides/widgets.md) developer guides.
+For how layouts and widgets fit together, see the [Layouts](layouts.md) and [Widgets](widgets.md) developer guides.

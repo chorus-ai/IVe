@@ -1,7 +1,4 @@
-# Page 9 — Visit Data View
-
-**Route:** `/ive/visit/:visitId`
-**Source:** `client/src/apps/ive/components/VisitDataView.tsx`
+# Visit Data View
 
 ## Purpose
 

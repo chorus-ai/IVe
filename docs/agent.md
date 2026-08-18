@@ -1,7 +1,4 @@
-# Page 5 — Agent
-
-**Route:** `/ive/agent`
-**Source:** `client/src/apps/ive/pages/Agent.tsx`
+# Agent
 
 ## Purpose
 
@@ -12,7 +9,7 @@ A chat-style assistant for exploring OMOP CDM data with natural language. The us
 - **Conversation pane.** Messages alternate user / agent. Each agent message can include:
   - A free-text answer.
   - One or more **API traces** — expandable POST endpoints (e.g. `/api/omop/person/search`, `/api/omop/condition_occurrence`) with the body the agent would have sent.
-  - Inline **widgets** rendered by the same widget registry the Workspace uses (`patient_profile`, `timeline`, `stats`, `genericChart`, etc.). See the [Widgets](../guides/widgets.md) guide.
+  - Inline **widgets** rendered by the same widget registry the Workspace uses (`patient_profile`, `timeline`, `stats`, `genericChart`, etc.). See the [Widgets](widgets.md) guide.
 - **Input box** at the bottom with a Send button.
 - **Quick actions** on each response: Save as Cohort, Refine Query, Visualize, Export.
 

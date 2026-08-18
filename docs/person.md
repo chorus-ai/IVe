@@ -1,7 +1,4 @@
-# Page 8 — Person Data View
-
-**Route:** `/ive/person/:personId`
-**Source:** `client/src/apps/ive/components/PersonDataView.tsx`
+# Person Data View
 
 ## Purpose
 
@@ -36,5 +33,5 @@ POST /api/omop/<table>/search { where: { person_id: <id> }, ... }
 
 ## Related
 
-- Embeds `Widget` (the generic widget renderer used by [Workspace](workspace.md)). See the [Widgets](../guides/widgets.md) guide.
-- Links inside widgets navigate to [`/ive/visit/:visitId`](visit.md) when a visit ID is clicked.
+- Embeds `Widget` (the generic widget renderer used by [Workspace](workspace.md)). See the [Widgets](widgets.md) guide.
+- Links inside widgets navigate to the [Visit Data View](visit.md) when a visit ID is clicked.

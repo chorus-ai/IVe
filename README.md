@@ -1,4 +1,4 @@
-# IVe — Integrated Viewer
+## IVe — Integrated Viewer
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **IVe is a clinical research workspace for the OMOP Common Data Model.** It's built for the
@@ -95,33 +95,28 @@ npm run lint      # ESLint
 ## App Pages
 
 Multi-page reference docs are structured for GitBook, starting at [SUMMARY.md](SUMMARY.md). This
-section documents IVe page by page: what each page does, what the user sees, and which
-backend endpoints and app state it relies on. A typical user moves through IVe in roughly
-this order:
+section documents IVe page by page: what each page does and what the user sees. A typical user
+moves through IVe in roughly this order:
 
-| # | Page | Route |
-| --- | --- | --- |
-| 1 | [Search (Landing)](pages/search.md) | `/ive` |
-| 2 | [Cohort](pages/cohort.md) | `/ive/cohort`, `/ive/cohort/:id` |
-| 3 | [Workspace](pages/workspace.md) | `/ive/workspace` |
-| 4 | [Endpoints](pages/endpoints.md) | `/ive/endpoints` |
-| 5 | [Agent](pages/agent.md) | `/ive/agent` |
-| 6 | [Clinical Tables Overview](pages/clinical-tables.md) | `/ive/tables` |
-| 7 | [Clinical Table Detail](pages/clinical-table-detail.md) | `/ive/table/:tableKey` |
-| 7a | [Waveform Viewer](pages/waveform.md) | `/ive/table/waveform` |
-| 7b | [DICOM Viewer](pages/dicom.md) (coming soon) | `/ive/table/dicom` |
-| 8 | [Person Data View](pages/person.md) | `/ive/person/:personId` |
-| 9 | [Visit Data View](pages/visit.md) | `/ive/visit/:visitId` |
-
-Each page doc covers: purpose, what the user sees, backend endpoints, relevant app state, and
-related components. Source paths referenced throughout are relative to
-`client/src/apps/ive/` in the monorepo linked above.
+| # | Page |
+| --- | --- |
+| 1 | [Search (Landing)](docs/search.md) |
+| 2 | [Cohort](docs/cohort.md) |
+| 3 | [Workspace](docs/workspace.md) |
+| 4 | [Endpoints](docs/endpoints.md) |
+| 5 | [Agent](docs/agent.md) |
+| 6 | [Clinical Tables Overview](docs/clinical-tables.md) |
+| 7 | [Clinical Table Detail](docs/clinical-table-detail.md) |
+| 7a | [Waveform Viewer](docs/waveform.md) |
+| 7b | [DICOM Viewer](docs/dicom.md) (coming soon) |
+| 8 | [Person Data View](docs/person.md) |
+| 9 | [Visit Data View](docs/visit.md) |
 
 ## Developer Guides
 
-- [Widgets](guides/widgets.md) — how the dashboard widget system is structured, and how to
+- [Widgets](docs/widgets.md) — how the dashboard widget system is structured, and how to
   build and register a new widget.
-- [Layouts](guides/layouts.md) — how dashboard layouts are stored, edited in the Workspace,
+- [Layouts](docs/layouts.md) — how dashboard layouts are stored, edited in the Workspace,
   and hosted read-only on other pages (e.g. the Person/Visit views).
 
 ## DB Schema
@@ -140,7 +135,7 @@ Based on the provided description, here's a breakdown of the features for the in
 2. **Interrogation Tools:**
    - Search and filter functionality to quickly locate specific data points or trends.
    - Interactive tools to probe and analyze the displayed data.
-   - Annotation and note-taking capabilities for users to mark important findings.
+   - Annotation and note-taking capabilities for users to mark important findings
    - Share finginds with other users
 
 3. **Widget Development:**

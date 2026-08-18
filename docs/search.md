@@ -1,7 +1,4 @@
-# Page 1 — Search (Landing)
-
-**Route:** `/ive`
-**Source:** `client/src/apps/ive/pages/Search.tsx`
+# Search (Landing)
 
 ![IVe search landing page](../screens/01-search.png)
 
@@ -14,18 +11,18 @@ The IVe entry point. A concept-first search bar that resolves OMOP concept terms
 - **Hero search bar.** Single input, debounced ~400 ms.
 - **Results dropdown.** Top 20 concept matches; each shows concept ID, term, occurrence count, and domain badge (Condition, Drug, Measurement, etc.).
 - **Category shortcuts.** Quick pivot tiles for common domains.
-- **"Explore all tables" button.** Bypass search → go to the table overview (`/ive/tables`).
+- **"Explore all tables" button.** Bypass search → go to the [Clinical Tables Overview](clinical-tables.md).
 
 ## Backend calls
 
 | When | Endpoint |
 | --- | --- |
 | Typing in the search box | `GET /api/vocab/concept/search?name=<term>` |
-| Click "Explore all tables" | navigates to `/ive/tables` (no call) |
+| Click "Explore all tables" | navigates to the table overview (no call) |
 
 ## Behaviour on selecting a result
 
-Selecting a concept navigates to the relevant clinical table detail view (`/ive/table/:tableKey`) with the chosen concept pre-applied as a filter. The destination table is inferred from the concept's domain (e.g. Condition → `condition_occurrence`).
+Selecting a concept navigates to the relevant [Clinical Table Detail](clinical-table-detail.md) view with the chosen concept pre-applied as a filter. The destination table is inferred from the concept's domain (e.g. Condition → `condition_occurrence`).
 
 ## Related components
 

@@ -1,10 +1,7 @@
-# Page 7 — Clinical Table Detail
+# Clinical Table Detail
 
-**Route:** `/ive/table/:tableKey`
-**Source:** `client/src/apps/ive/components/ClinicalTablesDetail.tsx`
-**Specialised variants:**
-- `WaveformView` (`tableKey=waveform`) — multi-channel waveform viewer (see [Waveform Viewer](waveform.md)).
-- `ImagingView` (`tableKey=dicom`) — **Coming soon** preview (see [DICOM Viewer](dicom.md)).
+Two pages have specialised variants of this view: the [Waveform Viewer](waveform.md) and the
+[DICOM Viewer](dicom.md) (coming soon).
 
 ## Purpose
 
@@ -54,11 +51,11 @@ So a user can navigate away and come back to the same view.
 
 ## Linked views
 
-- Person link → [`/ive/person/:personId`](person.md).
-- Visit link → [`/ive/visit/:visitId`](visit.md).
+- Person link → [Person Data View](person.md).
+- Visit link → [Visit Data View](visit.md).
 - Save Filter → [Endpoints](endpoints.md) page shows the saved row.
 
 ## Specialised modes
 
-- **Waveform** (`/ive/table/waveform`) — multi-channel ECG / plethysmogram / respiration viewer over a WFDB-style record, with a scrubbable time window (see [Waveform Viewer](waveform.md)).
-- **DICOM** (`/ive/table/dicom`) — radiology viewer with WL/WW, measurements, annotations, and OMOP linkage. Currently shows a coming-soon preview (see [DICOM Viewer](dicom.md)).
+- **Waveform** — multi-channel ECG / plethysmogram / respiration viewer over a WFDB-style record, with a scrubbable time window (see [Waveform Viewer](waveform.md)).
+- **DICOM** — radiology viewer with WL/WW, measurements, annotations, and OMOP linkage. Currently shows a coming-soon preview (see [DICOM Viewer](dicom.md)).

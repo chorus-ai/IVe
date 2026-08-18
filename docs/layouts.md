@@ -58,7 +58,7 @@ name or tag:
 settings (`WidgetSettingsModal`, reads `Settings`/`defaults`/`validate`
 from the registry), save via `SaveLayoutModal` → server. Saved layouts
 appear everywhere layouts are listed — including page-level hosts like the
-subject view — with no extra wiring. See the [Workspace](../pages/workspace.md)
+subject view — with no extra wiring. See the [Workspace](workspace.md)
 page doc for the user-facing view of this.
 
 ## Hosting a layout on a page

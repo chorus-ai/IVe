@@ -1,7 +1,7 @@
-# Page 7a — Waveform Viewer
+# Waveform Viewer
 
-**Route:** `/ive/table/waveform`
-**Also available as:** a dashboard widget (`type: 'waveform'`, category `person`) — see the [Widgets](../guides/widgets.md) guide — usable in the Workspace and on any layout-hosting page, including the Cohort → Subject view (see [Cohort](cohort.md)).
+Also usable as a dashboard widget in the Workspace or on the Cohort → Subject view — see the
+[Widgets](widgets.md) guide and the [Cohort](cohort.md) page.
 
 ## Status
 
@@ -19,8 +19,4 @@ Renders a bedside-monitor-style stack of synchronized signal traces from a WFDB-
 
 ## Known limitation
 
-As of the last widget-system notes, the waveform widget does not yet follow the selected subject via the `personId` override the way other `category: 'person'` widgets do — it shows whatever WFDB record is set in its own config rather than resolving a person→record mapping automatically. Confirm current behavior in the app before relying on per-subject auto-selection.
-
-## Details not covered here
-
-Backend endpoint(s) and Redux/app-state wiring for waveform data are not documented in the available source material — check `client/src/apps/ive/components/WaveformView.tsx` and the `waveform` entry in `widgets/registry.ts` in the monorepo for the current implementation.
+As of the last widget-system notes, the waveform widget does not yet follow the selected subject the way other person-scoped widgets do — it shows whatever record is set in its own config rather than resolving a per-subject mapping automatically. Confirm current behavior in the app before relying on per-subject auto-selection.

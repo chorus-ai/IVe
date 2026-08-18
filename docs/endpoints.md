@@ -1,7 +1,4 @@
-# Page 4 — Endpoints
-
-**Route:** `/ive/endpoints`
-**Source:** `client/src/apps/ive/pages/Endpoints.tsx`
+# Endpoints
 
 ## Purpose
 

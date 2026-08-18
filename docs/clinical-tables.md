@@ -1,7 +1,4 @@
-# Page 6 — Clinical Tables Overview
-
-**Route:** `/ive/tables`
-**Source:** `client/src/apps/ive/components/ClinicalTablesOverview.tsx`
+# Clinical Tables Overview
 
 ## Purpose
 
@@ -33,8 +30,8 @@ GET /api/omop/<table>/count
 
 | Card | Destination |
 | --- | --- |
-| Any OMOP table | `/ive/table/<tableKey>` → [Clinical Table Detail](clinical-table-detail.md) |
-| `waveform` | `/ive/table/waveform` → [Waveform Viewer](waveform.md) |
-| `dicom` | `/ive/table/dicom` → [DICOM Viewer](dicom.md) |
+| Any OMOP table | [Clinical Table Detail](clinical-table-detail.md) |
+| Waveform | [Waveform Viewer](waveform.md) |
+| DICOM | [DICOM Viewer](dicom.md) |
 
 The dispatcher lives in `routes.tsx` (`TableDetailRoute` component).

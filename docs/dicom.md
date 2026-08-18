@@ -1,7 +1,4 @@
-# Page 7b — DICOM Viewer (Coming Soon)
-
-**Route:** `/ive/table/dicom`
-**Source:** `client/src/apps/ive/pages/Imaging.tsx`
+# DICOM Viewer (Coming Soon)
 
 ## Status
 

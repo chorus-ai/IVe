@@ -4,19 +4,19 @@
 
 ## App Features
 
-* [1. Search (Landing)](pages/search.md)
-* [2. Cohort](pages/cohort.md)
-* [3. Workspace](pages/workspace.md)
-* [4. Endpoints](pages/endpoints.md)
-* [5. Agent](pages/agent.md)
-* [6. Clinical Tables Overview](pages/clinical-tables.md)
-* [7. Clinical Table Detail](pages/clinical-table-detail.md)
-* [7a. Waveform Viewer](pages/waveform.md)
-* [7b. DICOM Viewer](pages/dicom.md)
-* [8. Person Data View](pages/person.md)
-* [9. Visit Data View](pages/visit.md)
+* [1. Search (Landing)](docs/search.md)
+* [2. Cohort](docs/cohort.md)
+* [3. Workspace](docs/workspace.md)
+* [4. Endpoints](docs/endpoints.md)
+* [5. Agent](docs/agent.md)
+* [6. Clinical Tables Overview](docs/clinical-tables.md)
+* [7. Clinical Table Detail](docs/clinical-table-detail.md)
+* [7a. Waveform Viewer](docs/waveform.md)
+* [7b. DICOM Viewer](docs/dicom.md)
+* [8. Person Data View](docs/person.md)
+* [9. Visit Data View](docs/visit.md)
 
 ## Developer Guides
 
-* [Widgets](guides/widgets.md)
-* [Layouts](guides/layouts.md)
+* [Widgets](docs/widgets.md)
+* [Layouts](docs/layouts.md)
