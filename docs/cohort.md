@@ -7,8 +7,6 @@ description: >-
 
 # Cohort
 
-## List view
-
 ![Cohort Explorer list view](../.gitbook/assets/08-cohort-explorer.png)
 
 ### Layout
