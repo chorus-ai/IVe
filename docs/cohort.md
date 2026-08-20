@@ -38,6 +38,4 @@ The right panel renders whichever layout is selected for the subject view (see t
 
 ![Multi-channel waveform widget embedded in a subject's timeline layout](../.gitbook/assets/subject_event_timeline_waveform.png)
 
-### Notes
 
-The current implementation reads subjects from a static `COHORT_SUBJECT_DATA` map for demo purposes. Hooking it up to a real `/api/omop/cohort_subject` endpoint is a follow-up.
