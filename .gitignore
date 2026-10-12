@@ -1,0 +1,32 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# server
+server/node_modules
+server/.env
+server/package-lock.json
+
+# client
+client/node_modules
+client/package-lock.json
+client/.env
+
+# production
+server/ecosystem.config.js
+client/dist
+
+# pycache
+server/python-scripts/__pycache__
+server/python-scripts/*/__pycache__
+
+# misc
+# root .env holds docker compose secrets in downstream repos (e.g. IVe)
+.env
+.DS_Store
+.pm2/*
+.vscode/*
+.claude/*
+
+# data
+server/data
+doc/*
+scripts/*

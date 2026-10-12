@@ -1,0 +1,81 @@
+{
+  "tags": [
+    {
+      "name": "Waveform",
+      "description": "WFDB waveform decoding from the bucket"
+    }
+  ],
+  "paths": {
+    "/waveform/wfdb": {
+      "get": {
+        "tags": [
+          "Waveform"
+        ],
+        "operationId": "readWfdb",
+        "summary": "Decode a slice of a WFDB record from the bucket. filename is bucket-relative (with or without .hea); offset and range are seconds, range at most 600.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bucket-relative record path, e.g. waveforms/mimic_iv/p100/p10079700/85594648/85594648_0001"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0
+            },
+            "description": "Start, in seconds from the record start"
+          },
+          {
+            "in": "query",
+            "name": "range",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 600,
+              "default": 30
+            },
+            "description": "Length, in seconds; values above 600 are capped"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Decoded slice: StartTime, OffsetInSec, TicksPerSec, SamplesPerChannel, TotalSamples, DurationSec, WaveformData[]"
+          },
+          "400": {
+            "description": "Missing/invalid parameter, or a path outside the bucket"
+          },
+          "404": {
+            "description": "No WFDB record at filename"
+          },
+          "422": {
+            "description": "Decoder failed on the record (unreadable or corrupt)"
+          },
+          "502": {
+            "description": "Decoder returned output that is not JSON"
+          },
+          "503": {
+            "description": "BUCKET_PATH or PYTHON_PATH not configured"
+          },
+          "504": {
+            "description": "Decoder timed out"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# Python dependencies for the SERVER IMAGE only — the file decoders the Node
+# API shells out to (adibin, wfdb, HDF5, JSON).
+#
+# Why not server/python-scripts/requirements.txt: that file is one
+# undifferentiated list of 60 pins serving two different workloads — these
+# decoders AND the m2d model scripts (pandas, scikit-learn, torch-adjacent
+# extras). The m2d scripts are deliberately not in this image; they expect
+# `conda run -n m2d` and are headed for per-run sandboxed containers
+# (doc/m2d/ROADMAP.md).
+#
+# It also cannot be installed as-is here: its 2023 pins (scipy==1.10.0,
+# pandas==1.5.3, numpy==1.24.1) have no aarch64 wheels for Python 3.11, so pip
+# falls back to compiling them through the legacy numpy.distutils and fails.
+#
+# Floors, not pins, so wheels are available on both architectures. Pin these
+# once the host and the image agree on an interpreter.
+numpy>=1.26
+scipy>=1.11
+h5py>=3.10
+wfdb>=4.1
+# adibin-handler.py imports this and it is MISSING from
+# server/python-scripts/requirements.txt — a fresh host install cannot decode
+# .adibin either. Worth fixing at the source.
+binfilepy>=0.1.8

@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Vocab API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "description": "Base URL for Vocab API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Vocab",
+      "description": "OMOP concept vocabulary lookup"
+    }
+  ],
+  "paths": {
+    "/vocab/concept": {
+      "get": {
+        "tags": ["Vocab"],
+        "summary": "List concepts",
+        "parameters": [
+          { "name": "table", "in": "query", "schema": { "type": "string" }, "description": "Filter by source table name" },
+          { "name": "column", "in": "query", "schema": { "type": "string" }, "description": "Filter by source column name" },
+          { "name": "vocabulary_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "concept_class_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "concept_code", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          { "name": "pageSize", "in": "query", "schema": { "type": "integer" } },
+          { "name": "order", "in": "query", "schema": { "type": "string", "enum": ["ASC", "DESC"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of concepts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Concept" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/vocab/concept/search": {
+      "get": {
+        "tags": ["Vocab"],
+        "summary": "Search concepts by name",
+        "parameters": [
+          { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "table", "in": "query", "schema": { "type": "string" } },
+          { "name": "column", "in": "query", "schema": { "type": "string" } },
+          { "name": "vocabulary_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "concept_class_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "concept_code", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          { "name": "pageSize", "in": "query", "schema": { "type": "integer" } },
+          { "name": "exactMatch", "in": "query", "schema": { "type": "boolean", "default": false } },
+          { "name": "order", "in": "query", "schema": { "type": "string", "enum": ["ASC", "DESC"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching concepts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Concept" }
+                }
+              }
+            }
+          },
+          "404": { "description": "No concept found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/vocab/concept/{cid}": {
+      "get": {
+        "tags": ["Vocab"],
+        "summary": "Get concept by ID",
+        "parameters": [
+          { "name": "cid", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "A concept",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Concept" }
+              }
+            }
+          },
+          "404": { "description": "Concept not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Concept": {
+        "type": "object",
+        "properties": {
+          "concept_id": { "type": "integer" },
+          "concept_name": { "type": "string" },
+          "concept_class_id": { "type": "string" },
+          "concept_code": { "type": "string" },
+          "vocabulary_id": { "type": "string" },
+          "table_name": { "type": "string" },
+          "column_name": { "type": "string" },
+          "count": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

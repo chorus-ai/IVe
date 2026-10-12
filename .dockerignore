@@ -1,0 +1,20 @@
+# Build context is the IVe repo root, which also holds the GitBook docs.
+.git
+.github
+.gitbook
+.claude
+docs
+screens
+*.md
+index.html
+
+**/node_modules
+**/.DS_Store
+**/.env
+!**/.env.example
+
+client/dist
+# Bucket data is mounted at runtime, never baked in.
+server/data
+**/__pycache__
+**/*.pyc

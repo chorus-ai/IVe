@@ -1,0 +1,59 @@
+# IVe stack: nginx (web) + Express (api). Redis and Orthanc are external and
+# reached through the hosts in .env; the database is SQLite files in
+# ./server/data or an external Postgres.
+#
+#   cp .env.example .env      # fill in DB, Redis, Orthanc, JWT_SECRET
+#   docker compose up -d --build
+#   open http://localhost:8080
+#
+# Synced to the IVe repo root by scripts/sync_downstream.py — edit the copy in
+# hulab-apps-container/ive/ upstream.
+
+name: ive
+
+services:
+  api:
+    build:
+      context: .
+      target: api
+    env_file: .env
+    environment:
+      # Pinned to what this repo ships; widening it would mount nothing.
+      FEATURES: ive,omop,vocab,dicom,waveform
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      # In .env, BUCKET_PATH is the HOST folder (mounted below); inside the
+      # container it is always this. The SQLite files live here too, as in
+      # upstream; /api/bucket lists file names, but nothing in this build
+      # serves a bucket file's bytes except WFDB records via /api/waveform.
+      BUCKET_PATH: /srv/server/data
+    extra_hosts:
+      # Lets .env say host.docker.internal for services on the Docker host
+      # (built in on Docker Desktop/Colima, needed explicitly on Linux).
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Bucket + SQLite databases (*_DB_STORAGE) in one folder. Read-write
+      # because SQLite writes its journal next to the db file. server/data is
+      # gitignored and dockerignored, so nothing here is committed or baked
+      # into the image.
+      - ${BUCKET_PATH:-./server/data}:/srv/server/data
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: web
+      # Baked into the client bundle at build time — rebuild after changing.
+      args:
+        VITE_APP_NAME: ${VITE_APP_NAME:-IVe}
+        VITE_API_DOC: ${VITE_API_DOC:-/docs}
+        VITE_GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+    environment:
+      API_UPSTREAM: http://api:8080
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

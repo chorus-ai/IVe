@@ -1,0 +1,1693 @@
+{
+  "tags": [
+    {
+      "name": "iveEndpoint",
+      "description": "Saved OMOP API endpoints"
+    },
+    {
+      "name": "iveLayout",
+      "description": "Dashboard layout management"
+    },
+    {
+      "name": "iveWidget",
+      "description": "Widget template management"
+    },
+    {
+      "name": "iveTag",
+      "description": "Tagging for IVE layouts, widgets and endpoints"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "iveEndpointBody": {
+        "type": "object",
+        "required": [
+          "endpoint"
+        ],
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "example": "/condition_occurrence/search"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "default": "POST"
+          },
+          "params": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "attributes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "countOnly": {
+                "type": "boolean"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tag slugs to attach on create/update; synced to the iveTag join table. Returned tags are in the readonly iveTags array."
+          },
+          "isPublic": {
+            "type": "boolean",
+            "default": true,
+            "description": "When true, any authenticated user can read this saved endpoint"
+          },
+          "isCached": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, server may serve this endpoint's response from cache"
+          }
+        }
+      },
+      "iveEndpoint": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/iveEndpointBody"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "readOnly": true
+              },
+              "userId": {
+                "type": "integer",
+                "readOnly": true,
+                "description": "Owner (createdBy)"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "iveTags": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IveTag"
+                },
+                "readOnly": true
+              },
+              "createdBy": {
+                "type": "object",
+                "readOnly": true,
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "iveLayoutBody": {
+        "type": "object",
+        "required": [
+          "name",
+          "config"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "My Dashboard"
+          },
+          "config": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": [
+              {
+                "id": "w1",
+                "type": "stats",
+                "title": "KPIs",
+                "w": 12
+              }
+            ]
+          }
+        }
+      },
+      "iveLayout": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/iveLayoutBody"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "readOnly": true
+              },
+              "userId": {
+                "type": "integer",
+                "readOnly": true,
+                "description": "Owner (createdBy)"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "iveTags": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IveTag"
+                },
+                "readOnly": true
+              },
+              "createdBy": {
+                "type": "object",
+                "readOnly": true,
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "iveWidgetBody": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "config"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object"
+          }
+        }
+      },
+      "iveWidget": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/iveWidgetBody"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "readOnly": true
+              },
+              "userId": {
+                "type": "integer",
+                "readOnly": true,
+                "description": "Owner (createdBy)"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "iveTags": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IveTag"
+                },
+                "readOnly": true
+              },
+              "createdBy": {
+                "type": "object",
+                "readOnly": true,
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "IveTag": {
+        "type": "object",
+        "required": [
+          "slug"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "example": "admin-panel"
+          }
+        }
+      },
+      "IveSlugList": {
+        "type": "object",
+        "required": [
+          "slugs"
+        ],
+        "properties": {
+          "slugs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "example": [
+              "admin-panel",
+              "patient-summary"
+            ]
+          }
+        }
+      },
+      "IveTagResources": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "$ref": "#/components/schemas/IveTag"
+          },
+          "layouts": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "endpoints": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "iveEndpoint": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveEndpointBody"
+            }
+          }
+        }
+      },
+      "iveEndpointUpdate": {
+        "required": false,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveEndpointBody"
+            }
+          }
+        }
+      },
+      "iveLayout": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveLayoutBody"
+            }
+          }
+        }
+      },
+      "iveLayoutUpdate": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveLayoutBody"
+            }
+          }
+        }
+      },
+      "iveWidget": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveWidgetBody"
+            }
+          }
+        }
+      },
+      "iveWidgetUpdate": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/iveWidgetBody"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/ive/endpoint": {
+      "get": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "listEndpointsByTagSlug",
+        "summary": "List saved endpoints by tag slug (via the iveTag join table). Required: ?tag=:slug",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tag",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Tag slug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endpoints carrying the tag"
+          },
+          "400": {
+            "description": "Missing required query param: tag"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "createEndpoint",
+        "summary": "Save a new endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveEndpoint"
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "endpoint is required"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/endpoint/users/{uid}": {
+      "get": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "listEndpointsByUser",
+        "summary": "List saved endpoints by user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endpoints list"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/endpoint/tags/{tagName}": {
+      "get": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "listEndpointsByLegacyTag",
+        "summary": "List saved endpoints by tag slug via the iveTag join table (back-compat path)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tagName",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endpoints list"
+          },
+          "404": {
+            "description": "None found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/endpoint/{id}": {
+      "get": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "getEndpointById",
+        "summary": "Get saved endpoint by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "updateEndpoint",
+        "summary": "Update saved endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveEndpointUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "deleteEndpoint",
+        "summary": "Delete saved endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/endpoint/{id}/tags": {
+      "post": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "addTagsToEndpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Attach tags to an endpoint (merge)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated endpoint with tags"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "setTagsOnEndpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Replace the tag set on an endpoint",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated endpoint with tags"
+          }
+        }
+      }
+    },
+    "/ive/endpoint/{id}/tags/{tagId}": {
+      "delete": {
+        "tags": [
+          "iveEndpoint"
+        ],
+        "operationId": "removeTagFromEndpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Detach a tag from an endpoint",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "tagId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated endpoint with tags"
+          }
+        }
+      }
+    },
+    "/ive/layout": {
+      "get": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "listLayouts",
+        "summary": "List all layouts (or filter by ?tag=:slug)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tag",
+            "schema": {
+              "type": "string"
+            },
+            "description": "If set, returns only layouts carrying this tag slug"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Layouts list"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "createLayout",
+        "summary": "Create a layout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveLayout"
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Name already exists"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/layout/search": {
+      "post": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "searchLayouts",
+        "summary": "Search layouts by name",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "page": {
+                    "type": "integer",
+                    "default": 1
+                  },
+                  "pageSize": {
+                    "type": "integer",
+                    "default": 10
+                  },
+                  "sortOrder": {
+                    "type": "string",
+                    "enum": [
+                      "asc",
+                      "desc"
+                    ],
+                    "default": "desc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Results"
+          },
+          "404": {
+            "description": "No match"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/layout/{layout_id}": {
+      "get": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "getLayoutById",
+        "summary": "Get layout by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "updateLayout",
+        "summary": "Update layout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveLayoutUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "deleteLayout",
+        "summary": "Delete layout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/layout/{layout_id}/tags": {
+      "post": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "addTagsToLayout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Attach tags to a layout (merge)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated layout with tags"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "setTagsOnLayout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Replace the tag set on a layout",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated layout with tags"
+          }
+        }
+      }
+    },
+    "/ive/layout/{layout_id}/tags/{tagId}": {
+      "delete": {
+        "tags": [
+          "iveLayout"
+        ],
+        "operationId": "removeTagFromLayout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Detach a tag from a layout",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "layout_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "tagId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated layout with tags"
+          }
+        }
+      }
+    },
+    "/ive/widget": {
+      "get": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "listWidgets",
+        "summary": "List all widgets (or filter by ?tag=:slug)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tag",
+            "schema": {
+              "type": "string"
+            },
+            "description": "If set, returns only widgets carrying this tag slug"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Widgets list"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "createWidget",
+        "summary": "Create a widget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveWidget"
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/widget/search": {
+      "post": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "searchWidgets",
+        "summary": "Search widgets by name",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "page": {
+                    "type": "integer",
+                    "default": 1
+                  },
+                  "pageSize": {
+                    "type": "integer",
+                    "default": 10
+                  },
+                  "sortOrder": {
+                    "type": "string",
+                    "enum": [
+                      "asc",
+                      "desc"
+                    ],
+                    "default": "desc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Results"
+          },
+          "404": {
+            "description": "No match"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/widget/{widget_id}": {
+      "get": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "getWidgetById",
+        "summary": "Get widget by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "updateWidget",
+        "summary": "Update widget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveWidgetUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "deleteWidget",
+        "summary": "Delete widget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/widget/{widget_id}/tags": {
+      "post": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "addTagsToWidget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Attach tags to a widget (merge)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated widget with tags"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "setTagsOnWidget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Replace the tag set on a widget",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveSlugList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated widget with tags"
+          }
+        }
+      }
+    },
+    "/ive/widget/{widget_id}/tags/{tagId}": {
+      "delete": {
+        "tags": [
+          "iveWidget"
+        ],
+        "operationId": "removeTagFromWidget",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Detach a tag from a widget",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "tagId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated widget with tags"
+          }
+        }
+      }
+    },
+    "/ive/tag": {
+      "get": {
+        "tags": [
+          "iveTag"
+        ],
+        "operationId": "listIveTags",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List all tags",
+        "responses": {
+          "200": {
+            "description": "Tag list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IveTag"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "iveTag"
+        ],
+        "operationId": "createIveTag",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create a tag (slug only)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IveTag"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IveTag"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid slug"
+          },
+          "409": {
+            "description": "Slug already exists"
+          }
+        }
+      }
+    },
+    "/ive/tag/{slug}": {
+      "get": {
+        "tags": [
+          "iveTag"
+        ],
+        "operationId": "getIveTagBySlug",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get a tag by slug",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IveTag"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/ive/tag/{id}": {
+      "delete": {
+        "tags": [
+          "iveTag"
+        ],
+        "operationId": "deleteIveTagById",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete a tag by id (cascades to all join tables)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/ive/tag/{slug}/resources": {
+      "get": {
+        "tags": [
+          "iveTag"
+        ],
+        "operationId": "getIveResourcesByTag",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get all layouts, widgets, and endpoints carrying this tag",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grouped resources",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IveTagResources"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tag not found"
+          }
+        }
+      }
+    }
+  }
+}

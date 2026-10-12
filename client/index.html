@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hulab-Apps</title>
+  <!-- Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+      tailwind.config = {
+          darkMode: "class",
+          theme: {
+              extend: {
+                  colors: {
+                      "primary": "#136dec",
+                      "background-light": "#f8fafc",
+                      "background-dark": "#0b1118",
+                      "panel-light": "#ffffff",
+                      "panel-dark": "#101822"
+                  },
+                  fontFamily: {
+                      "sans": ["Inter", "sans-serif"]
+                  }
+              },
+          },
+      }
+  </script>
+     <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased;
+            }
+        }
+        /* The Tailwind forms plugin rings every bare input/textarea/select on
+           focus. MUI already draws its own outline, so inputs in the MUI apps
+           (cada, m2d) showed two borders. These rules are deliberately
+           unlayered — the plugin's live in @layer base, which any unlayered
+           rule outranks — and are scoped to MUI classes so the Tailwind-based
+           apps (IVe, CADA+) keep their focus rings. */
+        .MuiInputBase-input:focus,
+        .MuiInputBase-input:focus-visible,
+        .MuiSelect-nativeInput:focus,
+        .PrivateSwitchBase-input:focus,
+        .PrivateSwitchBase-input:focus-visible,
+        .MuiCheckbox-root input:focus,
+        .MuiRadio-root input:focus,
+        .MuiSwitch-root input:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: transparent;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-ring-offset-shadow: 0 0 #0000;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+        }
+        .medical-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(19, 109, 236, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
