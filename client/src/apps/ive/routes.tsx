@@ -50,6 +50,7 @@ const iveRoutes = [
     <Route index element={<Search />} />
     <Route path="cohort" element={<CohortView />} />
     <Route path="cohort/:cohortDefinitionId" element={<CohortDetail />} />
+    <Route path="cohort/:cohortDefinitionId/subject/:subjectId" element={<CohortDetail />} />
     <Route path="workspace" element={<Workspace />} />
     <Route path="endpoints" element={<EndpointsView />} />
     <Route path="agent" element={<AgentView />} />

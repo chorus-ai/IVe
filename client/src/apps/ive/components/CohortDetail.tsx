@@ -6,9 +6,11 @@ import { getOmopRows, getOmopCount } from '../api/omop';
 const PAGE_SIZE = 20;
 
 const CohortDetail: React.FC = () => {
-  const { cohortDefinitionId } = useParams<{ cohortDefinitionId: string }>();
+  const { cohortDefinitionId, subjectId } = useParams<{ cohortDefinitionId: string; subjectId?: string }>();
   const navigate = useNavigate();
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
+  // Set once a deep-linked subject has been looked up and is not in this cohort.
+  const [missingSubjectId, setMissingSubjectId] = useState<string | null>(null);
 
   const [header, setHeader] = useState<string[]>([]);
   const [rows, setRows] = useState<unknown[][]>([]);
@@ -78,24 +80,75 @@ const CohortDetail: React.FC = () => {
     const startIdx = header.indexOf('cohort_start_date');
     const endIdx = header.indexOf('cohort_end_date');
     const cohortIdx = header.indexOf('cohort_definition_id');
-    return rows.map((row) => ({
-      id: `${row[subjectIdx]}_${row[startIdx]}`,
-      subjectId: String(row[subjectIdx]),
-      startDate: String(row[startIdx]),
-      endDate: String(row[endIdx]),
-      cohortId: String(row[cohortIdx]),
-    }));
+    const byId = new Map<string, { id: string; subjectId: string; startDate: string; endDate: string; cohortId: string }>();
+    // Deduped: a deep-linked subject's rows are fetched ahead of the pages
+    // and turn up again when "Load more" reaches them.
+    for (const row of rows) {
+      const id = `${row[subjectIdx]}_${row[startIdx]}`;
+      if (byId.has(id)) continue;
+      byId.set(id, {
+        id,
+        subjectId: String(row[subjectIdx]),
+        startDate: String(row[startIdx]),
+        endDate: String(row[endIdx]),
+        cohortId: String(row[cohortIdx]),
+      });
+    }
+    return [...byId.values()];
   }, [header, rows]);
 
   const selectedRecord = useMemo(() => {
-    return records.find((r) => r.id === selectedRecordId) || records[0];
-  }, [records, selectedRecordId]);
+    const found = records.find((r) => r.id === selectedRecordId);
+    if (found) return found;
+    // With a subject in the URL, never fall back to someone else's record.
+    return subjectId ? undefined : records[0];
+  }, [records, selectedRecordId, subjectId]);
 
+  // Sync the selection to the URL. A subject can have several episodes
+  // (rows) in a cohort; the URL picks the subject, a click picks the episode.
   useEffect(() => {
-    if (records.length > 0 && !selectedRecordId) {
-      setSelectedRecordId(records[0].id);
+    if (!records.length) return;
+    if (!subjectId) {
+      if (!selectedRecordId) setSelectedRecordId(records[0].id);
+      return;
     }
-  }, [records, selectedRecordId]);
+    if (selectedRecord?.subjectId === subjectId) return;
+    const match = records.find((r) => r.subjectId === subjectId);
+    if (match) setSelectedRecordId(match.id);
+  }, [records, subjectId, selectedRecordId, selectedRecord]);
+
+  // A deep-linked subject may sit beyond the loaded pages: fetch its rows.
+  useEffect(() => {
+    setMissingSubjectId(null);
+    if (loading || !cohortDefinitionId || !subjectId || !header.length) return;
+    if (records.some((r) => r.subjectId === subjectId)) return;
+    let cancelled = false;
+    getOmopRows(
+      'cohort',
+      { page: 1, pageSize: PAGE_SIZE },
+      { cohort_definition_id: cohortDefinitionId, subject_id: subjectId }
+    )
+      .then((res) => {
+        if (cancelled) return;
+        if (res.rows.length) setRows((prev) => [...res.rows, ...prev]);
+        else setMissingSubjectId(subjectId);
+      })
+      .catch((err: Error) => {
+        if (!cancelled) setError(err.message);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // records is derived from rows; depending on it would refetch after the merge.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, cohortDefinitionId, subjectId, header]);
+
+  const selectRecord = (record: { id: string; subjectId: string }) => {
+    setSelectedRecordId(record.id);
+    if (record.subjectId !== subjectId) {
+      navigate(`/ive/cohort/${cohortDefinitionId}/subject/${record.subjectId}`);
+    }
+  };
 
   if (loading) {
     return (
@@ -160,11 +213,11 @@ const CohortDetail: React.FC = () => {
 
         <div className="flex-grow overflow-y-auto custom-scrollbar p-3 space-y-1">
           {records.map((record) => {
-            const isActive = selectedRecordId === record.id || (!selectedRecordId && record.id === records[0]?.id);
+            const isActive = selectedRecord?.id === record.id;
             return (
               <button
                 key={record.id}
-                onClick={() => setSelectedRecordId(record.id)}
+                onClick={() => selectRecord(record)}
                 className={`w-full text-left p-2 rounded-xl border transition-all group ${
                   isActive
                     ? 'bg-primary/5 dark:bg-primary/10 border-primary shadow-sm'
@@ -218,6 +271,20 @@ const CohortDetail: React.FC = () => {
             startDate={selectedRecord.startDate}
             endDate={selectedRecord.endDate}
           />
+        ) : missingSubjectId ? (
+          <div className="flex-grow flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-12">
+            <div className="text-center">
+              <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">person_off</span>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Subject Not in Cohort</h3>
+              <p className="text-slate-500 max-w-xs mx-auto">
+                Subject #{missingSubjectId} has no records in cohort {cohortDefinitionId}.
+              </p>
+            </div>
+          </div>
+        ) : subjectId ? (
+          <div className="flex-grow flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-12">
+            <p className="text-slate-500 italic">Loading subject #{subjectId}...</p>
+          </div>
         ) : (
           <div className="flex-grow flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-12">
              <div className="text-center">
