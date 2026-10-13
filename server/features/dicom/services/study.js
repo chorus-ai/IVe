@@ -5,7 +5,7 @@
  * main simplification of choosing a PACS over a filesystem scan.
  */
 
-const orthanc = require("../../../utils/orthanc");
+const orthanc = require("./orthanc");
 const { getCached, setCached } = require("../../../utils/cache");
 const meta = require("./metadata");
 

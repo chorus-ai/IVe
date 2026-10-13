@@ -1,5 +1,5 @@
 # IVe production images. Synced to the IVe repo root by
-# scripts/sync_downstream.py — edit the copy in hulab-apps-container/ive/.
+# scripts/sync_downstream.py — edit the copy in docker/ive/.
 #
 # Two targets from one file:
 #   web  nginx serving the Vite build, proxying /api and /docs to `api`

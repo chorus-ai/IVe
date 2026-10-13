@@ -110,8 +110,9 @@ and set `APP_HOST` to the public URL.
 
 ```bash
 docker compose logs -f api        # server log
-docker compose restart api        # pick up .env changes or swapped db files
-docker compose up -d --build      # after pulling new code
+docker compose up -d              # after editing .env or docker-compose.yml
+docker compose up -d --build      # after pulling new code or editing the Dockerfile
+docker compose restart api        # swapped db files; Redis came up late
 docker compose down               # stop; data in ./server/data is untouched
 ```
 
@@ -133,5 +134,5 @@ docker compose down               # stop; data in ./server/data is untouched
 The code and these Docker files are synced from the upstream hulab-apps
 repository by `scripts/sync_downstream.py`. Changes to `client/`, `server/`,
 the `Dockerfile`, `docker-compose.yml` or `docker/` made here are overwritten on
-the next sync — make them upstream (`hulab-apps-container/ive/` for the Docker
+the next sync — make them upstream (in its `docker/ive/` folder for the Docker
 files).

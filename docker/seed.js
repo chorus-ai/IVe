@@ -15,7 +15,7 @@
 //
 // Uses the server's own models, so it works against whatever APP_DB_* in .env
 // points at (SQLite or Postgres). Synced to the IVe repo as docker/seed.js and
-// baked into the api image — edit the copy in hulab-apps-container/ive/.
+// baked into the api image — edit the copy in docker/ive/.
 
 const { parseArgs } = require("node:util");
 

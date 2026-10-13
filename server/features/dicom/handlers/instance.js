@@ -8,7 +8,7 @@
  * reaches it.
  */
 
-const orthanc = require("../../../utils/orthanc");
+const orthanc = require("../services/orthanc");
 const studyService = require("../services/study");
 const phiScanService = require("../services/phiScan");
 

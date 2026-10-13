@@ -7,7 +7,7 @@
 #   open http://localhost:8080
 #
 # Synced to the IVe repo root by scripts/sync_downstream.py — edit the copy in
-# hulab-apps-container/ive/ upstream.
+# docker/ive/ upstream.
 
 name: ive
 

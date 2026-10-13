@@ -19,7 +19,7 @@
  * PHI, and sending it out to find the PHI in it defeats the purpose.
  */
 
-const orthanc = require("../../../utils/orthanc");
+const orthanc = require("./orthanc");
 const ai = require("../../../utils/aiService");
 const { getCached, setCached } = require("../../../utils/cache");
 

@@ -1,9 +1,10 @@
 /**
  * Adapter for Orthanc's REST API (the DICOM/PACS authority).
  *
- * Orthanc is infrastructure, not a feature, so this sits in utils/ alongside
- * aiService / queue / redis / cache. It is the only module that knows Orthanc's
- * URL, credentials and response shapes.
+ * Orthanc is infrastructure, not a feature, but dicom is its only consumer, so
+ * the adapter lives here rather than in utils/; promote it if a second feature
+ * needs it. It is the only module that knows Orthanc's URL, credentials and
+ * response shapes.
  *
  * **Orthanc must never be reachable from the browser.** It exposes full PHI —
  * `/studies/{id}` returns `PatientMainDicomTags` with PatientName and PatientID
@@ -16,7 +17,7 @@
  */
 
 const axios = require("axios");
-const env = require("../config/env");
+const env = require("../../../config/env");
 
 class OrthancError extends Error {
   constructor(status, detail) {
