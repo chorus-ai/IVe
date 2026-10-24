@@ -109,7 +109,7 @@
       html:not(.dark) .hover\:bg-slate-900:hover {
         background-color: #f1f5f9 !important;
       }
-      html:not(.dark) img.shot {
+      html:not(.dark) .shot {
         box-shadow:
           0 30px 60px -20px rgba(15, 23, 42, 0.18),
           0 0 0 1px rgba(15, 23, 42, 0.08);
@@ -177,7 +177,12 @@
         background-size: 100% 40px;
         background-repeat: no-repeat;
       }
-      img.shot {
+      video.shot {
+        display: block;
+        height: auto;
+        background: #0f172a;
+      }
+      .shot {
         border-radius: 12px;
         box-shadow:
           0 30px 60px -20px rgba(0, 0, 0, 0.7),
@@ -312,12 +317,18 @@
           <div
             class="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-violet-500/20 to-emerald-500/20 rounded-3xl blur-2xl"
           ></div>
-          <img
-            src="https://github.com/chorus-ai/IVe/blob/main/screens/01-search.png?raw=true"
-            alt="IVe Search landing"
+          <video
+            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-search.mp4"
+            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-search.jpg"
             class="relative shot w-full"
-            loading="lazy"
-          />
+            width="1600"
+            height="1130"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label="Searching the vocabulary for neck pain and opening the matching records"
+          ></video>
         </div>
 
         <!-- Key stats -->
@@ -450,8 +461,9 @@
             </div>
             <h3 class="text-lg font-bold mb-2">Clinical Agent</h3>
             <p class="text-sm text-slate-400 leading-relaxed">
-              Ask in plain English: "Summarize Sarah Sterling," "Show prevalence
-              of hypertension." The agent queries OMOP for you.
+              Ask in plain English: "Female patients who received
+              norepinephrine." The agent plans the OMOP searches; you see
+              the plan and the results.
             </p>
           </div>
         </div>
@@ -531,12 +543,18 @@
         <!-- Cohort Explorer -->
         <div id="cohort" class="grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-20">
           <div class="lg:col-span-3">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/08-cohort-explorer.png?raw=true"
-              alt="Cohort Explorer"
-              class="shot w-full"
-              loading="lazy"
-            />
+            <video
+            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-cohort-build.mp4"
+            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-cohort-build.jpg"
+            class="shot w-full"
+            width="1600"
+            height="1130"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label="Building a cohort from inclusion and exclusion criteria"
+          ></video>
           </div>
           <div class="lg:col-span-2">
             <span
@@ -624,17 +642,23 @@
                   class="material-symbols-outlined text-rose-400 text-base mt-0.5"
                   >check_circle</span
                 >
-                Export the cohort as CSV or hand it to the Agent
+                Export the cohort as CSV, or build one by asking the Agent
               </li>
             </ul>
           </div>
           <div class="lg:col-span-3 order-1 lg:order-2">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/09-subject-timeline.png?raw=true"
-              alt="Cohort subject timeline"
-              class="shot w-full"
-              loading="lazy"
-            />
+            <video
+            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-subject-timeline.mp4"
+            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-subject-timeline.jpg"
+            class="shot w-full"
+            width="1600"
+            height="1130"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label="Browsing cohort subjects on the event timeline and opening a waveform"
+          ></video>
           </div>
         </div>
 
@@ -723,12 +747,18 @@
         <!-- Widget Builder -->
         <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
           <div class="lg:col-span-3">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/10-workspace-builder.png?raw=true"
-              alt="Workspace with widgets"
-              class="shot w-full"
-              loading="lazy"
-            />
+            <video
+            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-workspace.mp4"
+            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-workspace.jpg"
+            class="shot w-full"
+            width="1600"
+            height="1130"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label="Adding a widget to the workspace and saving the layout"
+          ></video>
           </div>
           <div class="lg:col-span-2">
             <span
@@ -777,69 +807,113 @@
               Talk to your data.
             </h3>
             <p class="text-slate-400 leading-relaxed mb-6">
-              The Clinical Agent is grounded in OMOP CDM v5.4 via a RAG
-              service. Ask it to find cohorts, summarize patients, or compute
-              prevalence — it writes the queries for you and returns
-              structured, sharable results.
+              The Clinical Agent is a query planner built on Claude. It looks
+              up concept IDs in your dataset's own vocabulary, then plans
+              searches against IVe's OMOP API. Every plan is validated before
+              anything runs, and the searches run in your browser, so query
+              results never go back to the model.
             </p>
             <div class="flex flex-wrap gap-2">
               <span
                 class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >Find patients with T2DM</span
+                >Patients diagnosed with sepsis</span
               >
               <span
                 class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >Summarize Person #18462</span
+                >How many emergency room visits?</span
               >
               <span
                 class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >Prevalence of Hypertension</span
+                >Female patients on norepinephrine</span
               >
             </div>
           </div>
           <div class="lg:col-span-3 order-1 lg:order-2">
-            <div
-              class="force-dark relative bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-2xl"
-            >
-              <div
-                class="flex items-center gap-2 pb-4 border-b border-slate-800 mb-4"
-              >
-                <span
-                  class="material-symbols-outlined text-amber-400"
-                  >smart_toy</span
-                >
-                <div>
-                  <p class="text-sm font-semibold text-white">Clinical Agent</p>
-                  <p class="text-[10px] uppercase tracking-widest text-slate-500">
-                    Powered by OMOP CDM v5.4
-                  </p>
-                </div>
+            <video
+            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-agent.mp4"
+            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-agent.jpg"
+            class="shot w-full"
+            width="1600"
+            height="980"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label="Asking the Clinical Agent for patients with sepsis, then for emergency room visits"
+          ></video>
+          </div>
+        </div>
+
+        <!-- Agent: privacy and efficiency -->
+        <div class="grid md:grid-cols-2 gap-6 mt-12">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-emerald-400">shield_lock</span>
+              <h4 class="text-lg font-bold">The model never sees patient data</h4>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mb-5">
+              The agent plans; it does not read. Claude writes a search plan,
+              your browser runs it, and the results stop there.
+            </p>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">
+                  Sent to the model
+                </p>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li>✓ Your question</li>
+                  <li>✓ OMOP table and column names</li>
+                  <li>✓ Vocabulary concept names and IDs</li>
+                </ul>
               </div>
-              <div class="space-y-4 text-sm">
-                <div class="flex justify-end">
-                  <p
-                    class="bg-blue-500/15 border border-blue-500/30 text-slate-200 rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%]"
-                  >
-                    Summarize Person #18462
-                  </p>
-                </div>
-                <div class="flex justify-start">
-                  <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl rounded-bl-sm px-4 py-3 max-w-[85%] text-slate-200 space-y-2">
-                    <p>
-                      <span class="font-bold text-white">Person #18462</span> —
-                      55-year-old male, last visit 2024-10-08.
-                    </p>
-                    <p class="text-slate-400 text-xs">
-                      Active conditions: Type 2 DM, Essential Hypertension,
-                      Hyperlipidemia. Vitals: BMI 28.4 (+1.2), BP 7.1% (-0.4).
-                    </p>
-                    <p class="text-xs text-amber-400/90">
-                      ▸ Generated from 4 OMOP queries · view&nbsp;trace
-                    </p>
-                  </div>
-                </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">
+                  Never sent
+                </p>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li>✕ Patient rows or identifiers</li>
+                  <li>✕ Query results or counts</li>
+                  <li>✕ Notes, waveforms or images</li>
+                </ul>
               </div>
             </div>
+            <p class="mt-5 text-xs text-slate-500 leading-relaxed">
+              Every plan is checked on the server (tables, columns, concept
+              IDs) before anything runs, then executes through the same
+              authenticated OMOP API as any other IVe search.
+            </p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-amber-400">bolt</span>
+              <h4 class="text-lg font-bold">A frontier model that feels like a search box</h4>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mb-5">
+              Because results never go to the model, a question costs the same
+              whether it matches ten patients or ten thousand. The rules and
+              OMOP schema are prompt-cached, so each call only pays for what is
+              new.
+            </p>
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <div class="rounded-xl bg-slate-950 border border-slate-800 p-3">
+                <p class="text-2xl font-extrabold text-white">~4 s</p>
+                <p class="text-[11px] text-slate-500 mt-1">typical answer</p>
+              </div>
+              <div class="rounded-xl bg-slate-950 border border-slate-800 p-3">
+                <p class="text-2xl font-extrabold text-white">&lt;1k</p>
+                <p class="text-[11px] text-slate-500 mt-1">new input tokens per question</p>
+              </div>
+              <div class="rounded-xl bg-slate-950 border border-slate-800 p-3">
+                <p class="text-2xl font-extrabold text-white">~80%</p>
+                <p class="text-[11px] text-slate-500 mt-1">less input cost with a warm cache</p>
+              </div>
+            </div>
+            <p class="mt-5 text-xs text-slate-500 leading-relaxed">
+              Measured on Claude Sonnet 5.5. The ~3.8k-token prompt is cached;
+              the searches themselves hit IVe's Redis-cached OMOP API, and a
+              per-user daily cap keeps usage predictable.
+            </p>
           </div>
         </div>
       </div>
@@ -891,8 +965,8 @@
             <div class="text-6xl font-black text-slate-800 mb-2">04</div>
             <h3 class="text-xl font-bold mb-2">Analyze</h3>
             <p class="text-sm text-slate-400 leading-relaxed">
-              Compose widgets in the Workspace, persist as a layout, or hand it
-              off to the Clinical Agent.
+              Compose widgets in the Workspace and save them as a layout, or
+              ask the Clinical Agent to find the patients for you.
             </p>
           </div>
         </div>
@@ -942,9 +1016,32 @@
               >
             </summary>
             <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              The Agent runs against the same OMOP database your account is
-              authorized for. Access is gated by JWT-authenticated sessions and
-              feature-level RBAC.
+              No. The model only sees your question, the OMOP column schema
+              and concept names and IDs from the vocabulary. It returns a
+              search plan; your browser runs it against the OMOP API you are
+              already authorized for, and the patient rows, results and counts
+              are never sent to the model.
+            </p>
+          </details>
+          <details
+            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
+          >
+            <summary
+              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
+            >
+              How much does a Clinical Agent question cost?
+              <span
+                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
+                >expand_more</span
+              >
+            </summary>
+            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+              Very little. A typical question is two short model calls with
+              under 1,000 new input tokens; the rules and schema are
+              prompt-cached and reused at a tenth of the normal price. Results
+              are never sent back to the model, so cost does not grow with the
+              size of your data. Each question's token use is logged, and a
+              per-user daily cap keeps spending predictable.
             </p>
           </details>
           <details
@@ -1030,5 +1127,28 @@
         </div>
       </div>
     </footer>
+    <script>
+      // Screen recordings: play while visible, pause off-screen. With reduced
+      // motion they stay on the poster frame and can be played by clicking.
+      (function () {
+        var videos = document.querySelectorAll("video.shot");
+        var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        videos.forEach(function (v) {
+          if (still) {
+            v.controls = true;
+            return;
+          }
+          new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) v.play().catch(function () {});
+                else v.pause();
+              });
+            },
+            { threshold: 0.25 }
+          ).observe(v);
+        });
+      })();
+    </script>
   </body>
 </html>
