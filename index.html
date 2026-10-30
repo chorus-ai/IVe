@@ -31,13 +31,14 @@
       };
     </script>
     <script>
-      // Apply theme before paint to avoid flash
+      // Apply theme before paint to avoid flash. Light by default; dark only
+      // when the visitor chose it with the toggle.
       (function () {
-        var saved = localStorage.getItem("ive-theme");
-        var prefersDark =
-          window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (saved === "dark" || (!saved && prefersDark)) {
+        var saved = null;
+        try {
+          saved = localStorage.getItem("ive-theme");
+        } catch (e) {}
+        if (saved === "dark") {
           document.documentElement.classList.add("dark");
         }
       })();
@@ -255,7 +256,9 @@
         sync();
         btn.addEventListener("click", function () {
           var isDark = document.documentElement.classList.toggle("dark");
-          localStorage.setItem("ive-theme", isDark ? "dark" : "light");
+          try {
+            localStorage.setItem("ive-theme", isDark ? "dark" : "light");
+          } catch (e) {}
           sync();
         });
       })();
