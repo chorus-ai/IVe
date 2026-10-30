@@ -6,7 +6,7 @@
     <title>IVe — Investigator's Explorer</title>
     <meta
       name="description"
-      content="IVe is a clinical research workspace for the OMOP Common Data Model. Search standardized vocabularies, build retrospective cohorts, and chat with a clinical AI agent — all in one place."
+      content="Ask CHoRUS clinical data in plain English. IVe’s agent turns a question into OMOP searches in seconds, shows exactly what it searched, and never sees patient data. Then check every patient by hand."
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -214,8 +214,9 @@
           <span class="text-white">I</span><span class="text-blue-400">Ve</span>
         </a>
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <a href="#features" class="hover:text-white transition-colors">Features</a>
-          <a href="#screens" class="hover:text-white transition-colors">Screens</a>
+          <a href="#agent" class="hover:text-white transition-colors">Agent</a>
+          <a href="#verify" class="hover:text-white transition-colors">Verify</a>
+          <a href="#explore" class="hover:text-white transition-colors">Explore</a>
           <a href="#workflow" class="hover:text-white transition-colors">Workflow</a>
           <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
         </div>
@@ -260,606 +261,110 @@
       })();
     </script>
 
-    <!-- ─────────── HERO ─────────── -->
+
+    <!-- ─────────── HERO: the agent ─────────── -->
     <section class="relative pt-32 pb-24 overflow-hidden">
       <div class="absolute inset-0 grid-bg pointer-events-none"></div>
-      <div
-        class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none"
-      ></div>
-      <div
-        class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[120px] pointer-events-none"
-      ></div>
+      <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+      <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div class="relative mx-auto max-w-6xl px-6 text-center">
-        <span
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-300 mb-8 backdrop-blur"
-        >
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-300 mb-8 backdrop-blur">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          OMOP CDM · v5.4 
+          Clinical Agent · OMOP CDM v5.4
         </span>
 
-        <h1
-          class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6"
-        >
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6">
           Explore the
           <span class="gradient-text">CHoRUS Clinical Data</span>
-      
         </h1>
-        <p
-          class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
-          IVe is the investigator's explorer — search SNOMED, RxNorm,
-          and ICD-10, build retrospective cohorts, and ask a clinical agent
-          questions about your data.
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Describe the patients you need. IVe turns your question into OMOP
+          searches in seconds, shows you exactly what it searched, and lets
+          you check every patient by hand. The model never sees patient data.
         </p>
 
         <div class="flex flex-wrap justify-center items-center gap-4 mb-16">
-          <a
-            href="https://mgh-chorus.eastus2.cloudapp.azure.com/"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/30"
-          >
+          <a href="https://mgh-chorus.eastus2.cloudapp.azure.com/" target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/30">
             <span>Launch IVe</span>
             <span class="material-symbols-outlined">rocket_launch</span>
           </a>
-          <a
-            href="#screens"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900 text-slate-200 font-bold transition-colors"
-          >
+          <a href="#verify"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900 text-slate-200 font-bold transition-colors">
             <span class="material-symbols-outlined">play_circle</span>
             <span>See it in action</span>
           </a>
         </div>
 
-        <!-- Hero shot -->
         <div class="relative max-w-5xl mx-auto float">
-          <div
-            class="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-violet-500/20 to-emerald-500/20 rounded-3xl blur-2xl"
-          ></div>
+          <div class="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-violet-500/20 to-emerald-500/20 rounded-3xl blur-2xl"></div>
           <video
-            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-search.mp4"
-            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-search.jpg"
-            class="relative shot w-full"
-            width="1600"
-            height="1008"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label="Searching the vocabulary for neck pain and opening the matching records"
-          ></video>
+              src="screens/clip-agent.mp4"
+              poster="screens/clip-agent.jpg"
+              class="relative shot w-full"
+              width="1600"
+              height="1008"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Asking the Clinical Agent how many emergency room visits there were and who received norepinephrine, then opening a patient, their visit note, timeline, waveform and chest CT"
+            ></video>
         </div>
 
-        <!-- Key stats -->
-        <div
-          class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-16 text-left"
-        >
+        <div class="flex flex-wrap justify-center gap-2 mt-10">
+          <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300">How many ER visits?</span>
+          <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300">Who received norepinephrine?</span>
+          <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300">Patients diagnosed with sepsis</span>
+          <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300">Sepsis without norepinephrine</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-16 text-left">
+          <div>
+            <p class="text-3xl font-extrabold text-white">~4 s</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Question to cohort</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-white">0</p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Patient rows sent to the model</p>
+          </div>
           <div>
             <p class="text-3xl font-extrabold text-white">15</p>
-            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
-              CDM v5.4 Tables
-            </p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">CDM v5.4 tables</p>
           </div>
           <div>
             <p class="text-3xl font-extrabold text-white">9.5M+</p>
-            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
-              Indexed Concepts
-            </p>
-          </div>
-          <div>
-            <p class="text-3xl font-extrabold text-white">Media</p>
-            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
-              Image & Waveform 
-            </p>
-          </div>
-          <div>
-            <p class="text-3xl font-extrabold text-white">∞</p>
-            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">
-              Custom Cohorts
-            </p>
+            <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Indexed concepts</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ─────────── FEATURES ─────────── -->
-    <section
-      id="features"
-      class="relative py-24 border-t border-slate-800 bg-slate-950"
-    >
-      <div class="mx-auto max-w-7xl px-6">
+    <!-- ─────────── PRIVATE AND LIGHT ─────────── -->
+    <section id="agent" class="relative py-24 border-t border-slate-800 bg-slate-950 scroll-mt-16">
+      <div class="mx-auto max-w-6xl px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="text-[11px] uppercase tracking-widest font-bold text-blue-400 mb-3">
-            What's inside
-          </p>
-          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            One workspace, five superpowers.
-          </h2>
+          <p class="text-[11px] uppercase tracking-widest font-bold text-emerald-400 mb-3">Private and light by design</p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">A planner, not a reader.</h2>
           <p class="text-slate-400 leading-relaxed">
-            Each surface is built around a single research workflow — concept
-            search, structured exploration, programmatic access, and AI-driven
-            analysis.
+            The agent decides <em>what</em> to search; your browser runs the search. Patient data stays between you and the OMOP database, and the model stays fast and cheap because it never has to read it.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          <!-- Search -->
-          <div
-            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
-          >
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/30 mb-4"
-            >
-              <span class="material-symbols-outlined text-blue-400">search</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Concept Search</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Find medical concepts across SNOMED, RxNorm, and ICD-10. Quick
-              category chips for Condition, Procedure, Drug, Measurement,
-              Visit, Observation, and demographics.
-            </p>
-          </div>
-
-          <!-- Cohort -->
-          <div
-            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
-          >
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10 border border-rose-500/30 mb-4"
-            >
-              <span class="material-symbols-outlined text-rose-400">groups</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Cohort Explorer</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Define, sync, and inspect patient populations. Browse PheLib
-              definitions and drill into individual subject timelines.
-            </p>
-          </div>
-
-          <!-- Workspace -->
-          <div
-            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
-          >
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/30 mb-4"
-            >
-              <span class="material-symbols-outlined text-emerald-400">dashboard</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Workspace</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Compose dashboards from clinical widgets — patient profiles,
-              timelines, lab trends, and visit cost panels.
-            </p>
-          </div>
-
-          <!-- Endpoints -->
-          <div
-            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
-          >
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/30 mb-4"
-            >
-              <span class="material-symbols-outlined text-violet-400">api</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">API Endpoints</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Browse, version, and execute every API call IVe offers — from
-              <code class="text-xs text-slate-300">/person</code> lookups to
-              cohort generation.
-            </p>
-          </div>
-
-          <!-- Agent -->
-          <div
-            class="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 transition-all"
-          >
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4"
-            >
-              <span class="material-symbols-outlined text-amber-400">smart_toy</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Clinical Agent</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Ask in plain English: "Female patients who received
-              norepinephrine." The agent plans the OMOP searches; you see
-              the plan and the results.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─────────── SCREENSHOTS ─────────── -->
-    <section
-      id="screens"
-      class="relative py-24 border-t border-slate-800 overflow-hidden"
-    >
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[200px] pointer-events-none"
-      ></div>
-
-      <div class="relative mx-auto max-w-7xl px-6">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="text-[11px] uppercase tracking-widest font-bold text-violet-400 mb-3">
-            Tour
-          </p>
-          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            See every surface.
-          </h2>
-          <p class="text-slate-400 leading-relaxed">
-            Real screens from a recent build — no marketing mockups.
-          </p>
-        </div>
-
-        <!-- Tables Overview -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
-          <div class="lg:col-span-2 order-2 lg:order-1">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-4"
-              >01 — Tables Overview</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Every OMOP table at a glance.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Live record counts for all 13 CDM v5.4 domains plus signal and
-              imaging extensions. Click any card to drill into filtered rows.
-            </p>
-            <ul class="space-y-3 text-sm text-slate-300">
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Conditions, drugs, procedures, devices, observations
-              </li>
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Sync counts on demand
-              </li>
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-emerald-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Native dark mode
-              </li>
-            </ul>
-          </div>
-          <div class="lg:col-span-3 order-1 lg:order-2">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/02-tables.png?raw=true"
-              alt="Clinical Tables Overview"
-              class="shot w-full"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <!-- Cohort Explorer -->
-        <div id="cohort" class="grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-20">
-          <div class="lg:col-span-3">
-            <video
-            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-cohort-build.mp4"
-            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-cohort-build.jpg"
-            class="shot w-full"
-            width="1600"
-            height="1008"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label="Building a cohort from inclusion and exclusion criteria"
-          ></video>
-          </div>
-          <div class="lg:col-span-2">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-4"
-              >02 — Cohort Explorer</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Patient populations, defined.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Catalog every cohort definition, see live subject counts, and
-              track when each was last synced. Public, private, and PheLib-
-              sourced cohorts all live in one explorer.
-            </p>
-            <div class="grid grid-cols-2 gap-3">
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4"
-              >
-                <p class="text-2xl font-extrabold text-white">603</p>
-                <p
-                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
-                >
-                  Definitions
-                </p>
-              </div>
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4"
-              >
-                <p class="text-2xl font-extrabold text-white">800+</p>
-                <p
-                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
-                >
-                  Public Cohorts
-                </p>
-              </div>
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-4 col-span-2"
-              >
-                <p
-                  class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1"
-                >
-                  Example
-                </p>
-                <p class="text-sm font-semibold text-slate-200">
-                  [PheLib&nbsp;-&nbsp;898]&nbsp;[P]&nbsp;Acute renal failure
-                </p>
-                <p class="text-xs text-slate-500 mt-0.5">16,437 subjects · external_sourced</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cohort Subject -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
-          <div class="lg:col-span-2 order-2 lg:order-1">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-4"
-              >03 — Subject Timeline</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Drill into a single subject.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Pick any subject in a cohort to see their event-intensity chart,
-              full timeline of OMOP events, and a domain record table — all
-              scoped to the cohort window.
-            </p>
-            <ul class="space-y-3 text-sm text-slate-300">
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Stacked bar chart of conditions, drugs, measurements, procedures
-              </li>
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Gantt-style longitudinal timeline (powered by ECharts)
-              </li>
-              <li class="flex items-start gap-3">
-                <span
-                  class="material-symbols-outlined text-rose-400 text-base mt-0.5"
-                  >check_circle</span
-                >
-                Export the cohort as CSV, or build one by asking the Agent
-              </li>
-            </ul>
-          </div>
-          <div class="lg:col-span-3 order-1 lg:order-2">
-            <video
-            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-subject-timeline.mp4"
-            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-subject-timeline.jpg"
-            class="shot w-full"
-            width="1600"
-            height="1130"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label="Browsing cohort subjects on the event timeline and opening a waveform"
-          ></video>
-          </div>
-        </div>
-
-        <!-- Patient Profile -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
-          <div class="lg:col-span-3">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/03-workspace.png?raw=true"
-              alt="Patient profile workspace"
-              class="shot w-full"
-              loading="lazy"
-            />
-          </div>
-          <div class="lg:col-span-2">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest text-blue-400 mb-4"
-              >04 — Patient Workspace</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Patient stories, structured.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Open any subject (e.g. Person #18462) for a profile header,
-              retrospective summary, latest progress note, and vital
-              trends — composed from drag-and-drop widgets you save as
-              reusable layouts.
-            </p>
-            <div
-              class="grid grid-cols-2 gap-3 text-xs font-bold uppercase tracking-widest text-slate-500"
-            >
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
-              >
-                Profile Card
-              </div>
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
-              >
-                Past Vital Trends
-              </div>
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
-              >
-                Progress Note
-              </div>
-              <div
-                class="bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-center"
-              >
-                Documented Dx
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Endpoints -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
-          <div class="lg:col-span-2 order-2 lg:order-1">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-4"
-              >05 — Endpoints</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Every API, one place.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Browse, tag, and version every IVe endpoint. Inspect request
-              bodies, watch payload sizes, and copy curl-ready URLs.
-            </p>
-            <pre
-              class="bg-slate-950 border border-slate-800 rounded-lg p-4 text-xs text-slate-300 overflow-x-auto"
-            ><code><span class="text-blue-400">POST</span> /api/v1/analysis/execute
-<span class="text-emerald-400">GET</span>  /api/v1/cdm/source
-<span class="text-blue-400">POST</span> /person/search   <span class="text-slate-500"># cached</span>
-<span class="text-blue-400">POST</span> /measurement/search   <span class="text-slate-500"># cached</span></code></pre>
-          </div>
-          <div class="lg:col-span-3 order-1 lg:order-2">
-            <img
-              src="https://github.com/chorus-ai/IVe/blob/main/screens/04-endpoints.png?raw=true"
-              alt="API Endpoints"
-              class="shot w-full"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <!-- Widget Builder -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center mb-24">
-          <div class="lg:col-span-3">
-            <video
-            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-workspace.mp4"
-            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-workspace.jpg"
-            class="shot w-full"
-            width="1600"
-            height="1008"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label="Adding a widget to the workspace and saving the layout"
-          ></video>
-          </div>
-          <div class="lg:col-span-2">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-4"
-              >06 — Composable Widgets</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Compose dashboards, your way.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Drop in clinical notes, vital trends, documented diagnoses, or
-              custom charts. Each widget is backed by a live endpoint and can
-              be resized, reordered, and persisted as a saved layout.
-            </p>
-            <div class="grid grid-cols-3 gap-3 text-center">
-              <img
-                src="https://github.com/chorus-ai/IVe/blob/main/screens/05-widget-builder.png?raw=true"
-                alt="Custom widget builder"
-                class="shot w-full"
-                loading="lazy"
-              />
-              <img
-                src="https://github.com/chorus-ai/IVe/blob/main/screens/06-widget-library.png?raw=true"
-                alt="Widget library"
-                class="shot w-full"
-                loading="lazy"
-              />
-              <img
-                src="https://github.com/chorus-ai/IVe/blob/main/screens/07-layout-archive.png?raw=true"
-                alt="Layout archive"
-                class="shot w-full"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Agent -->
-        <div class="grid lg:grid-cols-5 gap-10 items-center">
-          <div class="lg:col-span-2 order-2 lg:order-1">
-            <span
-              class="inline-block px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-bold uppercase tracking-widest text-amber-400 mb-4"
-              >07 — Clinical Agent</span
-            >
-            <h3 class="text-3xl font-extrabold mb-4">
-              Talk to your data.
-            </h3>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              The Clinical Agent is a query planner built on Claude. It looks
-              up concept IDs in your dataset's own vocabulary, then plans
-              searches against IVe's OMOP API. Every plan is validated before
-              anything runs, and the searches run in your browser, so query
-              results never go back to the model.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >Patients diagnosed with sepsis</span
-              >
-              <span
-                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >How many emergency room visits?</span
-              >
-              <span
-                class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-900 border border-slate-800 text-slate-300"
-                >Female patients on norepinephrine</span
-              >
-            </div>
-          </div>
-          <div class="lg:col-span-3 order-1 lg:order-2">
-            <video
-            src="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-agent.mp4"
-            poster="https://cdn.jsdelivr.net/gh/chorus-ai/IVe@main/screens/clip-agent.jpg"
-            class="shot w-full"
-            width="1600"
-            height="1008"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label="Asking the Clinical Agent for patients with sepsis, then for emergency room visits"
-          ></video>
-          </div>
-        </div>
-
-        <!-- Agent: privacy and efficiency -->
-        <div class="grid md:grid-cols-2 gap-6 mt-12">
+        <div class="grid md:grid-cols-2 gap-6">
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <div class="flex items-center gap-3 mb-4">
               <span class="material-symbols-outlined text-emerald-400">shield_lock</span>
-              <h4 class="text-lg font-bold">The model never sees patient data</h4>
+              <h3 class="text-lg font-bold">The model never sees patient data</h3>
             </div>
             <p class="text-sm text-slate-400 leading-relaxed mb-5">
-              The agent plans; it does not read. Claude writes a search plan,
-              your browser runs it, and the results stop there.
+              Claude writes a search plan, the server checks it, and your
+              browser runs it. Results go to your screen and stop there.
             </p>
             <div class="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">
-                  Sent to the model
-                </p>
+                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">Sent to the model</p>
                 <ul class="space-y-1.5 text-slate-300">
                   <li>✓ Your question</li>
                   <li>✓ OMOP table and column names</li>
@@ -867,9 +372,7 @@
                 </ul>
               </div>
               <div>
-                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">
-                  Never sent
-                </p>
+                <p class="text-[11px] uppercase tracking-widest font-bold text-slate-500 mb-2">Never sent</p>
                 <ul class="space-y-1.5 text-slate-300">
                   <li>✕ Patient rows or identifiers</li>
                   <li>✕ Query results or counts</li>
@@ -878,7 +381,7 @@
               </div>
             </div>
             <p class="mt-5 text-xs text-slate-500 leading-relaxed">
-              Every plan is checked on the server (tables, columns, concept
+              Every plan is validated on the server (tables, columns, concept
               IDs) before anything runs, then executes through the same
               authenticated OMOP API as any other IVe search.
             </p>
@@ -887,12 +390,12 @@
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <div class="flex items-center gap-3 mb-4">
               <span class="material-symbols-outlined text-amber-400">bolt</span>
-              <h4 class="text-lg font-bold">A frontier model that feels like a search box</h4>
+              <h3 class="text-lg font-bold">A frontier model that feels like a search box</h3>
             </div>
             <p class="text-sm text-slate-400 leading-relaxed mb-5">
               Because results never go to the model, a question costs the same
               whether it matches ten patients or ten thousand. The rules and
-              OMOP schema are prompt-cached, so each call only pays for what is
+              OMOP schema are prompt-cached, so each call pays only for what is
               new.
             </p>
             <div class="grid grid-cols-3 gap-3 text-center">
@@ -910,199 +413,431 @@
               </div>
             </div>
             <p class="mt-5 text-xs text-slate-500 leading-relaxed">
-              Measured on Claude Sonnet 5.5. The ~3.8k-token prompt is cached;
-              the searches themselves hit IVe's Redis-cached OMOP API, and a
-              per-user daily cap keeps usage predictable.
+              Measured on Claude Sonnet 5.5. The ~3.8k-token prompt is cached,
+              the searches hit IVe’s Redis-cached OMOP API, and a per-user
+              daily cap keeps usage predictable.
             </p>
+          </div>
+        </div>
+        <div class="text-center">
+          <a href="#see-the-plan"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: See the plan
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            >
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── VERIFY ─────────── -->
+    <section id="verify" class="relative py-24 border-t border-slate-800 overflow-hidden scroll-mt-16">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[200px] pointer-events-none"></div>
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <p class="text-[11px] uppercase tracking-widest font-bold text-violet-400 mb-3">Ask, then verify</p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Trust it because you can check it.</h2>
+          <p class="text-slate-400 leading-relaxed">
+            An answer you can’t inspect isn’t an answer. Every result in IVe leads back to the concepts, the records and the patients it came from, using the same tools you would use without the agent.
+          </p>
+        </div>
+
+        <div id="see-the-plan" class="screen grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <a
+              href="#see-the-plan"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-bold uppercase tracking-widest text-amber-400 hover:bg-amber-500/20 mb-4"
+              >01 — See the plan <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Every answer shows its work.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              The agent lists the concepts it chose, with their IDs, and every vocabulary lookup behind them. Asked who received norepinephrine, it also tried “noradrenaline”, picked up the injection products and the Levophed brand, and pointed out that a patient can appear on several rows. Nothing is hidden behind a summary.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-amber-400 text-base mt-0.5">check_circle</span>
+                <span>Concept names and IDs for every criterion</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-amber-400 text-base mt-0.5">check_circle</span>
+                <span>Each vocabulary lookup and how many concepts it found</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-amber-400 text-base mt-0.5">check_circle</span>
+                <span>“View request” shows the exact API call</span>
+              </li>
+            </ul>
+            <div><a href="#check-by-hand"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Check it by hand
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <img
+              src="screens/agent-plan.png"
+              alt="An agent answer for norepinephrine: the seven drug concepts it chose, the matching drug exposures, and the two vocabulary lookups behind them"
+              class="shot w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div id="check-by-hand" class="screen grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-24">
+          <div class="lg:col-span-3">
+            <video
+              src="screens/clip-cohort-build.mp4"
+              poster="screens/clip-cohort-build.jpg"
+              class="shot w-full"
+              width="1600"
+              height="1008"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Building a cohort by hand: sepsis as a condition, female as gender, then finding the patients and viewing the request"
+            ></video>
+          </div>
+          <div class="lg:col-span-2">
+            <a
+              href="#check-by-hand"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 hover:bg-rose-500/20 mb-4"
+              >02 — Check it by hand <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Same question, your criteria.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Build a cohort runs the same cohort search the agent uses. Pick the criteria yourself, here sepsis and female, find the patients, and open “View request” to see the exact search, in the same form the agent sends. Same criteria, same patients, whichever way you ask.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>Inclusion and exclusion criteria by domain, matched all or any</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>Concept search scoped to each column, with optional date ranges</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>“View request” shows the cohort search behind every result</span>
+              </li>
+            </ul>
+            <div><a href="#each-patient"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Look at each patient
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+        </div>
+
+        <div id="each-patient" class="screen grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <a
+              href="#each-patient"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] font-bold uppercase tracking-widest text-rose-400 hover:bg-rose-500/20 mb-4"
+              >03 — Look at each patient <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Open any patient in the cohort.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Step through subjects to confirm they belong. Each one opens on a timeline of their OMOP events, with record tables for every domain and the waveforms recorded during the stay.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>Event timeline across conditions, drugs, measurements and procedures</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>Domain record tables scoped to the cohort window</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-base mt-0.5">check_circle</span>
+                <span>Bedside waveforms alongside the structured record</span>
+              </li>
+            </ul>
+            <div><a href="#your-view"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Build your view
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <video
+              src="screens/clip-subject-timeline.mp4"
+              poster="screens/clip-subject-timeline.jpg"
+              class="shot w-full"
+              width="1600"
+              height="1130"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Browsing cohort subjects on the event timeline and opening a waveform"
+            ></video>
+          </div>
+        </div>
+
+        <div id="your-view" class="screen grid lg:grid-cols-5 gap-10 items-center scroll-mt-24">
+          <div class="lg:col-span-3">
+            <video
+              src="screens/clip-workspace.mp4"
+              poster="screens/clip-workspace.jpg"
+              class="shot w-full"
+              width="1600"
+              height="1008"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Rearranging workspace widgets, adding a patient count widget to a blank workspace, viewing the layout JSON, and loading a saved layout from the archive"
+            ></video>
+          </div>
+          <div class="lg:col-span-2">
+            <a
+              href="#your-view"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/20 mb-4"
+              >04 — Build your view <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Keep the view that answered it.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Drag widgets into place, add ready-made ones or build your own chart from any OMOP search, and save the result as a layout. Load any saved layout from the archive for the next patient. A layout is plain JSON, so you can copy it, version it and share it with your team.
+            </p>
+            <div class="grid grid-cols-3 gap-3 items-start">
+              <img
+              src="screens/widget-prebuilt.png"
+              alt="Widget library: cohort and person demographics, patient count, concept breakdown and overlap widgets"
+              class="shot w-full"
+              loading="lazy"
+            />
+              <img
+              src="screens/widget-custom.png"
+              alt="Custom widget builder: choose a visualization, height, title and width"
+              class="shot w-full"
+              loading="lazy"
+            />
+              <img
+              src="screens/widget-layout-config.png"
+              alt="Dashboard layout config: the saved layout as JSON"
+              class="shot w-full"
+              loading="lazy"
+            />
+            </div>
+            <div><a href="#concept-search"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Concept search
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── EXPLORE ─────────── -->
+    <section id="explore" class="relative py-24 border-t border-slate-800 bg-slate-950 scroll-mt-16">
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <p class="text-[11px] uppercase tracking-widest font-bold text-blue-400 mb-3">Explore directly</p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">When you already know what you want.</h2>
+          <p class="text-slate-400 leading-relaxed">
+            The agent is the fastest way in, not the only one. Everything it does, you can do yourself.
+          </p>
+        </div>
+
+        <div id="concept-search" class="screen grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <a
+              href="#concept-search"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:bg-blue-500/20 mb-4"
+              >05 — Concept search <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Know the concept? Go straight to it.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Search SNOMED, RxNorm and ICD-10 directly, open the matching records, and filter them by any column. Every row leads to its patient, then to the visit, its timeline and the imaging and waveforms recorded during it.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-base mt-0.5">check_circle</span>
+                <span>Standard vocabularies, ranked by how often each concept occurs in your data</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-base mt-0.5">check_circle</span>
+                <span>Filters on any column of any OMOP table</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-base mt-0.5">check_circle</span>
+                <span>From a record to the patient, the visit and its media in a few clicks</span>
+              </li>
+            </ul>
+            <div><a href="#tables"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Tables overview
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <video
+              src="screens/clip-search.mp4"
+              poster="screens/clip-search.jpg"
+              class="shot w-full"
+              width="1600"
+              height="1008"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Searching for neck pain, filtering the condition records, then opening a patient, their inpatient visit timeline, a chest X-ray and a waveform"
+            ></video>
+          </div>
+        </div>
+
+        <div id="tables" class="screen grid lg:grid-cols-5 gap-10 items-center mb-24 scroll-mt-24">
+          <div class="lg:col-span-3">
+            <video
+              src="screens/clip-tables.mp4"
+              poster="screens/clip-tables.jpg"
+              class="shot w-full"
+              width="1600"
+              height="1008"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="The OMOP tables overview, opening the waveform viewer and then the DICOM imaging viewer"
+            ></video>
+          </div>
+          <div class="lg:col-span-2">
+            <a
+              href="#tables"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/20 mb-4"
+              >06 — Tables overview <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Every OMOP table at a glance.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Record counts for every CDM v5.4 table, plus the bedside waveforms and DICOM imaging that sit alongside them. Open any card to browse its records, or straight into the waveform and imaging viewers.
+            </p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-emerald-400 text-base mt-0.5">check_circle</span>
+                <span>Conditions, drugs, measurements, visits, notes and more</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-emerald-400 text-base mt-0.5">check_circle</span>
+                <span>Waveform viewer for continuous bedside signals</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-emerald-400 text-base mt-0.5">check_circle</span>
+                <span>DICOM viewer for X-ray, CT and MRI studies</span>
+              </li>
+            </ul>
+            <div><a href="#endpoints"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: Endpoints
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+        </div>
+
+        <div id="endpoints" class="screen grid lg:grid-cols-5 gap-10 items-center scroll-mt-24">
+          <div class="lg:col-span-2 order-2 lg:order-1">
+            <a
+              href="#endpoints"
+              title="Link to this screen"
+              class="inline-block px-2.5 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-[10px] font-bold uppercase tracking-widest text-violet-400 hover:bg-violet-500/20 mb-4"
+              >07 — Endpoints <span class="opacity-50">#</span></a
+            >
+            <h3 class="text-3xl font-extrabold mb-4">Every API, one place.</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              The agent, the cohort builder and every widget run on the same documented OMOP API. Browse it, try requests, and copy them into your own scripts.
+            </p>
+            <pre class="bg-slate-950 border border-slate-800 rounded-lg p-4 text-xs text-slate-300 overflow-x-auto"><code><span class="text-blue-400">POST</span> /api/ive/agent                  <span class="text-slate-500"># plan only</span>
+<span class="text-blue-400">POST</span> /api/omop/person/cohort-search <span class="text-slate-500"># agent + builder</span>
+<span class="text-blue-400">POST</span> /api/omop/drug_exposure/search <span class="text-slate-500"># cached</span></code></pre>
+            <div><a href="#workflow"
+              class="next-link inline-flex items-center gap-1.5 mt-8 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors"
+              >Next: How it works
+              <span class="material-symbols-outlined text-base">arrow_downward</span></a
+            ></div>
+          </div>
+          <div class="lg:col-span-3 order-1 lg:order-2">
+            <img
+              src="screens/endpoints.png"
+              alt="API Endpoints"
+              class="shot w-full"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
     </section>
 
     <!-- ─────────── WORKFLOW ─────────── -->
-    <section
-      id="workflow"
-      class="relative py-24 border-t border-slate-800 bg-slate-950"
-    >
+    <section id="workflow" class="relative py-24 border-t border-slate-800 scroll-mt-16">
       <div class="mx-auto max-w-6xl px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <p
-            class="text-[11px] uppercase tracking-widest font-bold text-emerald-400 mb-3"
-          >
-            How it works
-          </p>
-          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-            From concept to cohort in four steps.
-          </h2>
+          <p class="text-[11px] uppercase tracking-widest font-bold text-emerald-400 mb-3">How it works</p>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">From question to verified cohort.</h2>
         </div>
-
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           <div class="relative">
             <div class="text-6xl font-black text-slate-800 mb-2">01</div>
-            <h3 class="text-xl font-bold mb-2">Search</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Find the concepts that define your population. Standardized to
-              OMOP, suggested by frequency.
-            </p>
+            <h3 class="text-xl font-bold mb-2">Ask</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Describe the patients in plain English. The agent finds the matching concepts in your vocabulary and plans the search.</p>
           </div>
           <div class="relative">
             <div class="text-6xl font-black text-slate-800 mb-2">02</div>
-            <h3 class="text-xl font-bold mb-2">Define</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Build or import a cohort definition. PheLib, custom logic, or
-              external sources all work.
-            </p>
+            <h3 class="text-xl font-bold mb-2">Review</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Read the plan: the concepts, their IDs and the lookups behind them. Ask again to widen or narrow it.</p>
           </div>
           <div class="relative">
             <div class="text-6xl font-black text-slate-800 mb-2">03</div>
-            <h3 class="text-xl font-bold mb-2">Explore</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Drill into subject timelines, filter records by table, and save
-              filter sets as reusable views.
-            </p>
+            <h3 class="text-xl font-bold mb-2">Verify</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Rebuild the criteria in Build a cohort, and open patients to confirm they belong.</p>
           </div>
           <div class="relative">
             <div class="text-6xl font-black text-slate-800 mb-2">04</div>
-            <h3 class="text-xl font-bold mb-2">Analyze</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Compose widgets in the Workspace and save them as a layout, or
-              ask the Clinical Agent to find the patients for you.
-            </p>
+            <h3 class="text-xl font-bold mb-2">Use</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Save the layout, export the cohort, or call the same API from your own analysis.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─────────── FAQ ─────────── -->
-    <section id="faq" class="relative py-24 border-t border-slate-800">
-      <div class="mx-auto max-w-3xl px-6">
-        <div class="text-center mb-12">
-          <p class="text-[11px] uppercase tracking-widest font-bold text-blue-400 mb-3">
-            FAQ
-          </p>
-          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-            Common questions.
-          </h2>
-        </div>
-
-        <div class="space-y-3">
-          <details
-            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
-            >
-              Which OMOP CDM version does IVe target?
-              <span
-                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
-                >expand_more</span
-              >
-            </summary>
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              IVe targets OMOP CDM v5.4. Vocabulary version v20231012 is
-              bundled by default and can be swapped out per deployment.
-            </p>
-          </details>
-          <details
-            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
-            >
-              Does the Clinical Agent see PHI?
-              <span
-                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
-                >expand_more</span
-              >
-            </summary>
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              No. The model only sees your question, the OMOP column schema
-              and concept names and IDs from the vocabulary. It returns a
-              search plan; your browser runs it against the OMOP API you are
-              already authorized for, and the patient rows, results and counts
-              are never sent to the model.
-            </p>
-          </details>
-          <details
-            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
-            >
-              How much does a Clinical Agent question cost?
-              <span
-                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
-                >expand_more</span
-              >
-            </summary>
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Very little. A typical question is two short model calls with
-              under 1,000 new input tokens; the rules and schema are
-              prompt-cached and reused at a tenth of the normal price. Results
-              are never sent back to the model, so cost does not grow with the
-              size of your data. Each question's token use is logged, and a
-              per-user daily cap keeps spending predictable.
-            </p>
-          </details>
-          <details
-            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
-            >
-              Can I extend IVe with my own widgets?
-              <span
-                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
-                >expand_more</span
-              >
-            </summary>
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Yes. Widgets are React components registered against the workspace
-              widget registry. New endpoint-backed widgets can be added via the
-              Endpoint editor without redeploys.
-            </p>
-          </details>
-          <details
-            class="group bg-slate-900 border border-slate-800 rounded-xl p-5"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer font-semibold text-slate-100"
-            >
-              How do I get access?
-              <span
-                class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform"
-                >expand_more</span
-              >
-            </summary>
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Sign in to the Hulab Apps suite, then request access to IVe from
-              your Profile → Apps panel.
-            </p>
-          </details>
         </div>
       </div>
     </section>
 
     <!-- ─────────── CTA ─────────── -->
     <section id="cta" class="relative py-24 border-t border-slate-800 overflow-hidden">
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-emerald-500/10 pointer-events-none"
-      ></div>
-      <div class="relative mx-auto max-w-3xl px-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Ready to investigate?
-        </h2>
-        <p class="text-lg text-slate-400 mb-8">
-          Open IVe and start your first concept search in under a minute.
-        </p>
-        <a
-          href="https://mgh-chorus.eastus2.cloudapp.azure.com/"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold transition-all active:scale-95 shadow-2xl shadow-blue-500/30"
-        >
-          <span>Launch IVe</span>
-          <span class="material-symbols-outlined">arrow_forward</span>
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-emerald-500/10 pointer-events-none"></div>
+      <div class="relative mx-auto max-w-4xl px-6 grid md:grid-cols-[1fr_auto] gap-12 items-center text-center md:text-left">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Ready to investigate?</h2>
+          <p class="text-lg text-slate-400 mb-8">
+            Open IVe, ask your first question, and check the answer yourself.
+            IVe is open source, so you can also read the code and run it on
+            your own OMOP data.
+          </p>
+          <div class="flex flex-wrap justify-center md:justify-start gap-4">
+            <a href="https://mgh-chorus.eastus2.cloudapp.azure.com/" target="_blank" rel="noopener"
+              class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold transition-all active:scale-95 shadow-2xl shadow-blue-500/30">
+              <span>Launch IVe</span>
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            <a href="https://github.com/chorus-ai/IVe" target="_blank" rel="noopener"
+              class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900 text-slate-200 text-lg font-bold transition-colors">
+              <span class="material-symbols-outlined">code</span>
+              <span>View on GitHub</span>
+            </a>
+          </div>
+        </div>
+        <a href="https://github.com/chorus-ai/IVe" target="_blank" rel="noopener"
+          class="mx-auto flex flex-col items-center gap-3 group">
+          <span class="block rounded-2xl bg-white p-3 shadow-2xl ring-1 ring-slate-200 group-hover:scale-105 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 264" width="160" height="160" role="img" aria-label="QR code for github.com/chorus-ai/IVe" class="segno"><g transform="scale(8)"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#0f172a" d="M2 2.5h7m2 0h1m1 0h4m1 0h1m1 0h3m1 0h7m-29 1h1m5 0h1m1 0h3m1 0h1m4 0h2m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m3 0h8m2 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h4m4 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m1 0h1m7 0h2m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-15 1h1m2 0h2m1 0h1m-20 1h3m1 0h2m3 0h1m3 0h1m1 0h2m8 0h2m-23 1h1m1 0h1m1 0h12m1 0h5m1 0h1m-26 1h1m1 0h2m3 0h2m2 0h1m2 0h1m4 0h1m1 0h4m-27 1h2m2 0h1m1 0h1m5 0h4m2 0h2m2 0h3m2 0h1m-29 1h1m1 0h2m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h3m-29 1h2m2 0h1m2 0h1m1 0h3m3 0h2m1 0h2m2 0h2m1 0h2m1 0h1m-29 1h4m1 0h5m1 0h2m4 0h4m1 0h4m1 0h2m-28 1h1m1 0h1m3 0h1m2 0h1m1 0h1m6 0h4m1 0h2m2 0h1m-27 1h3m1 0h1m1 0h1m2 0h3m3 0h2m1 0h2m1 0h3m1 0h2m-24 1h1m1 0h1m2 0h3m1 0h1m1 0h1m4 0h1m1 0h1m2 0h1m-27 1h1m1 0h5m4 0h6m3 0h1m1 0h1m1 0h3m-25 1h4m1 0h3m1 0h1m1 0h1m2 0h11m-26 1h1m1 0h8m1 0h2m2 0h11m1 0h1m-21 1h2m1 0h2m1 0h1m1 0h3m1 0h1m3 0h2m1 0h2m-29 1h7m2 0h1m1 0h2m4 0h1m1 0h2m1 0h1m1 0h1m1 0h2m-28 1h1m5 0h1m1 0h2m2 0h4m2 0h1m1 0h1m3 0h1m2 0h1m-28 1h1m1 0h3m1 0h1m3 0h3m1 0h1m5 0h8m-28 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h5m4 0h1m1 0h1m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h2m1 0h2m3 0h2m2 0h1m2 0h1m2 0h1m1 0h1m-29 1h1m5 0h1m1 0h3m2 0h2m1 0h1m1 0h3m3 0h2m1 0h1m-28 1h7m2 0h2m1 0h1m6 0h3m1 0h1m3 0h1"/></g></svg>
+          </span>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-slate-500">Open source · scan for the code</span>
+          <span class="text-xs font-mono text-slate-400">github.com/chorus-ai/IVe</span>
         </a>
       </div>
     </section>
@@ -1150,5 +885,107 @@
         });
       })();
     </script>
+
+    <!-- Auto tour: pill shown only while a tour runs -->
+    <div id="tour-pill" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 items-center gap-3 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-700 text-xs font-semibold text-slate-200 shadow-2xl backdrop-blur">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>Auto tour · <span id="tour-step"></span></span>
+      <button id="tour-stop" type="button" aria-label="Stop auto tour" class="inline-flex items-center justify-center h-6 w-6 rounded-full hover:bg-slate-700">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    <script>
+      // Auto tour. Opening the page on a screen link (e.g. #see-the-plan)
+      // plays each screen in turn until the end of that section: a video
+      // screen moves on after one full loop of its clip, an image screen
+      // after 8 s. Any scroll, key, click or touch from the visitor stops it.
+      // Off with ?noauto, and for visitors who prefer reduced motion.
+      (function () {
+        if (new URLSearchParams(location.search).has("noauto")) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var first = location.hash && document.getElementById(location.hash.slice(1));
+        if (!first || !first.classList.contains("screen")) return;
+
+        var screens = Array.prototype.slice.call(
+          first.closest("section").querySelectorAll(".screen")
+        );
+        var i = screens.indexOf(first);
+        var pill = document.getElementById("tour-pill");
+        var step = document.getElementById("tour-step");
+        var timer = null;
+        var cleanup = null;
+        var running = true;
+
+        function stop() {
+          if (!running) return;
+          running = false;
+          clearTimeout(timer);
+          if (cleanup) cleanup();
+          pill.classList.add("hidden");
+          pill.classList.remove("flex");
+          ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) {
+            window.removeEventListener(t, onUser, true);
+          });
+        }
+        function onUser(e) {
+          if (pill.contains(e.target)) return;
+          stop();
+        }
+
+        function dwell(screen, next) {
+          var v = screen.querySelector("video");
+          if (!v) {
+            timer = setTimeout(next, 8000);
+            return;
+          }
+          // Move on when the looping clip wraps back to the start.
+          var last = 0;
+          function onTime() {
+            if (v.currentTime + 0.25 < last) next();
+            last = v.currentTime;
+          }
+          v.addEventListener("timeupdate", onTime);
+          cleanup = function () {
+            v.removeEventListener("timeupdate", onTime);
+          };
+          // Fallback if the clip never plays (blocked or slow network).
+          timer = setTimeout(next, 30000);
+        }
+
+        function show(k) {
+          if (!running) return;
+          clearTimeout(timer);
+          if (cleanup) cleanup();
+          cleanup = null;
+          var screen = screens[k];
+          step.textContent = k + 1 + " of " + screens.length;
+          if (k !== i) {
+            screen.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", "#" + screen.id);
+          }
+          var v = screen.querySelector("video");
+          if (v) {
+            v.currentTime = 0;
+            v.play().catch(function () {});
+          }
+          dwell(screen, function () {
+            if (k + 1 < screens.length) show(k + 1);
+            else stop();
+          });
+        }
+
+        pill.classList.remove("hidden");
+        pill.classList.add("flex");
+        document.getElementById("tour-stop").addEventListener("click", stop);
+        ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) {
+          window.addEventListener(t, onUser, true);
+        });
+        // Let the browser finish its own jump to the hash first.
+        setTimeout(function () {
+          show(i);
+        }, 400);
+      })();
+    </script>
   </body>
 </html>
+
